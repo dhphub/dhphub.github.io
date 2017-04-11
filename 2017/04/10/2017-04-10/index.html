@@ -2,7 +2,7 @@
  <!DOCTYPE HTML>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
   
     <title>单目视觉里程计算法流程 | 浮生小记</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
@@ -11,23 +11,23 @@
     
 
     
-    <meta name="description" content="视觉里程计通过处理摄像头采集的连续帧的图像来确定摄像头/机器人的位姿，也即$6DOF$。
-用一个摄像头的是单目视觉里程计，两个的叫双目。单目里程计可以用来确定机器人运动的大致轨迹，而双目里程计可以进行深度信息的测量，因此可以较为精确地测量出移动的距离。但是如果双目里程计的两个摄像头之间的$baseline$比较小，对于远处的物体，双目也就相当于单目。
-算法流程输入图像假设$t$时刻和$t+1$时刻">
+    <meta name="description" content="视觉里程计通过处理摄像头采集的连续帧的图像来确定摄像头/机器人的位姿，也即6DOF。
+用一个摄像头的是单目视觉里程计，两个的叫双目。单目里程计可以用来确定机器人运动的大致轨迹，而双目里程计可以进行深度信息的测量，因此可以较为精确地测量出移动的距离。但是如果双目里程计的两个摄像头之间的baseline比较小，对于远处的物体，双目也就相当于单目。
+算法流程输入图像假设$t$时刻和$t+1$时刻输入的图">
 <meta property="og:type" content="article">
 <meta property="og:title" content="单目视觉里程计算法流程">
-<meta property="og:url" content="http://yoursite.com/2017/04/10/2017-04-10/index.html">
+<meta property="og:url" content="https://dhphub.github.io/2017/04/10/2017-04-10/index.html">
 <meta property="og:site_name" content="浮生小记">
-<meta property="og:description" content="视觉里程计通过处理摄像头采集的连续帧的图像来确定摄像头/机器人的位姿，也即$6DOF$。
-用一个摄像头的是单目视觉里程计，两个的叫双目。单目里程计可以用来确定机器人运动的大致轨迹，而双目里程计可以进行深度信息的测量，因此可以较为精确地测量出移动的距离。但是如果双目里程计的两个摄像头之间的$baseline$比较小，对于远处的物体，双目也就相当于单目。
-算法流程输入图像假设$t$时刻和$t+1$时刻">
+<meta property="og:description" content="视觉里程计通过处理摄像头采集的连续帧的图像来确定摄像头/机器人的位姿，也即6DOF。
+用一个摄像头的是单目视觉里程计，两个的叫双目。单目里程计可以用来确定机器人运动的大致轨迹，而双目里程计可以进行深度信息的测量，因此可以较为精确地测量出移动的距离。但是如果双目里程计的两个摄像头之间的baseline比较小，对于远处的物体，双目也就相当于单目。
+算法流程输入图像假设$t$时刻和$t+1$时刻输入的图">
 <meta property="og:image" content="http://oo7y0cfqd.bkt.clouddn.com/result_01.png">
-<meta property="og:updated_time" content="2017-04-11T00:44:39.677Z">
+<meta property="og:updated_time" content="2017-04-11T16:00:00.944Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="单目视觉里程计算法流程">
-<meta name="twitter:description" content="视觉里程计通过处理摄像头采集的连续帧的图像来确定摄像头/机器人的位姿，也即$6DOF$。
-用一个摄像头的是单目视觉里程计，两个的叫双目。单目里程计可以用来确定机器人运动的大致轨迹，而双目里程计可以进行深度信息的测量，因此可以较为精确地测量出移动的距离。但是如果双目里程计的两个摄像头之间的$baseline$比较小，对于远处的物体，双目也就相当于单目。
-算法流程输入图像假设$t$时刻和$t+1$时刻">
+<meta name="twitter:description" content="视觉里程计通过处理摄像头采集的连续帧的图像来确定摄像头/机器人的位姿，也即6DOF。
+用一个摄像头的是单目视觉里程计，两个的叫双目。单目里程计可以用来确定机器人运动的大致轨迹，而双目里程计可以进行深度信息的测量，因此可以较为精确地测量出移动的距离。但是如果双目里程计的两个摄像头之间的baseline比较小，对于远处的物体，双目也就相当于单目。
+算法流程输入图像假设$t$时刻和$t+1$时刻输入的图">
 <meta name="twitter:image" content="http://oo7y0cfqd.bkt.clouddn.com/result_01.png">
 <link rel="publisher" href="100192185558249413488">
 
@@ -41,11 +41,11 @@
     <link rel="apple-touch-icon" href="/img/jacman.jpg">
     <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
     
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/style.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </head>
 
   <body>
-    <header>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><header>
       
 <div>
 		
@@ -55,7 +55,7 @@
 			
 			<div id="textlogo">
 				<h1 class="site-name"><a href="/" title="浮生小记">浮生小记</a></h1>
-				<h2 class="blog-motto">路漫漫其修远兮 | 吾将上下而求索 | 写给自己看的Blog | 咦，我为什么会这么菜呢？</h2>
+				<h2 class="blog-motto">路漫漫其修远兮 | 吾将上下而求索 | Blog旨在误人子弟 | 咦，我为什么会这么菜呢？</h2>
 			</div>
 			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
 			</a></div>
@@ -76,7 +76,7 @@
 					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
 						<label>Search</label>
 						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
-						<input type="hidden" name="q" value="site:yoursite.com">
+						<input type="hidden" name="q" value="site:dhphub.github.io">
 					</form>
 					
 					</li>
@@ -107,19 +107,20 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#视觉里程计"><span class="toc-number">1.</span> <span class="toc-text">视觉里程计</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#算法流程"><span class="toc-number">2.</span> <span class="toc-text">算法流程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#输入图像"><span class="toc-number">2.1.</span> <span class="toc-text">输入图像</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#畸变矫正"><span class="toc-number">2.2.</span> <span class="toc-text">畸变矫正</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#特征检测跟踪"><span class="toc-number">2.3.</span> <span class="toc-text">特征检测跟踪</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#计算本质矩阵"><span class="toc-number">2.4.</span> <span class="toc-text">计算本质矩阵</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#确定运动轨迹"><span class="toc-number">2.5.</span> <span class="toc-text">确定运动轨迹</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#运行结果"><span class="toc-number">3.</span> <span class="toc-text">运行结果</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#视觉里程计"><span class="toc-number">1.</span> <span class="toc-text">视觉里程计</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#算法流程"><span class="toc-number">2.</span> <span class="toc-text">算法流程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#输入图像"><span class="toc-number">2.1.</span> <span class="toc-text">输入图像</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#畸变矫正"><span class="toc-number">2.2.</span> <span class="toc-text">畸变矫正</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#特征检测跟踪"><span class="toc-number">2.3.</span> <span class="toc-text">特征检测跟踪</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#计算本质矩阵"><span class="toc-number">2.4.</span> <span class="toc-text">计算本质矩阵</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#确定运动轨迹"><span class="toc-number">2.5.</span> <span class="toc-text">确定运动轨迹</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#运行结果"><span class="toc-number">3.</span> <span class="toc-text">运行结果</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#后记"><span class="toc-number">4.</span> <span class="toc-text">后记</span></a></li></ol>
 		
 		</div>
 		
-		<h2 id="视觉里程计"><a href="#视觉里程计" class="headerlink" title="视觉里程计"></a>视觉里程计</h2><p>通过处理摄像头采集的连续帧的图像来确定摄像头/机器人的位姿，也即$6DOF$。</p>
-<p>用一个摄像头的是单目视觉里程计，两个的叫双目。单目里程计可以用来确定机器人运动的大致轨迹，而双目里程计可以进行深度信息的测量，因此可以较为精确地测量出移动的距离。但是如果双目里程计的两个摄像头之间的$baseline$比较小，对于远处的物体，双目也就相当于单目。</p>
-<h2 id="算法流程"><a href="#算法流程" class="headerlink" title="算法流程"></a>算法流程</h2><h3 id="输入图像"><a href="#输入图像" class="headerlink" title="输入图像"></a>输入图像</h3><p>假设$t$时刻和$t+1$时刻输入的图像分别是$I<em>t$和$I</em>{t+1}$，目前我采用的是来自$KITTI$的数据集。</p>
-<h3 id="畸变矫正"><a href="#畸变矫正" class="headerlink" title="畸变矫正"></a>畸变矫正</h3><p>关于畸变形成的原理和如何进行畸变矫正以及相机标定我会再写一篇详细的$blog$，这里采用的$KITTI$的数据集已经进行过矫正。</p>
-<h3 id="特征检测跟踪"><a href="#特征检测跟踪" class="headerlink" title="特征检测跟踪"></a>特征检测跟踪</h3><p>图像处理以及相关算法，给我印象对深刻，体会最深的就是特征，一个好的特征对图像处理至关重要，图像的研究以及相关算法大多是基于一定的特征，有可能是点，直线，边缘，甚至大牛们自己定义特征用以处理一定的问题。经典的特征提取算法有$Harris$角点检测，$canny$边缘检测，$FAST，SIFT，SURF$等。</p>
-<p>这里采用$FAST(Features\ From\ Accelerated\ Segment\ Test)$算法。先用FAST算法检测$I<em>t$的特征，然后用$KLT$算法进行跟踪特征到$I</em>{t+1}$中，由于$KLT$算法跟踪会丢失部分特征，当特征个数小于预先设置的阈值时，重新检测特征。</p>
-<h3 id="计算本质矩阵"><a href="#计算本质矩阵" class="headerlink" title="计算本质矩阵"></a>计算本质矩阵</h3><p>由于$Essential\ Matrix$具有5个自由度，因此用五点算法来估计本质矩阵。即如果匹配的特征是完美的，那么只需要五个点，但实际上存在误匹配，因此用$RANSAC$算法来筛选$inlier$。最终得到在两帧图像匹配点集合中具有最多的相应的$Essential\ Matrix$即为所求。</p>
-<h3 id="确定运动轨迹"><a href="#确定运动轨迹" class="headerlink" title="确定运动轨迹"></a>确定运动轨迹</h3><p>从$Essential\ Matrix$中求出旋转矩阵$R$和平移矩阵$t$，估计$scale$，并确定运动轨迹。这里的$scale$采用的是$KITTI$数据集所提供的。</p>
+		<h2 id="视觉里程计"><a href="#视觉里程计" class="headerlink" title="视觉里程计"></a>视觉里程计</h2><p>通过处理摄像头采集的连续帧的图像来确定摄像头/机器人的位姿，也即6DOF。</p>
+<p>用一个摄像头的是单目视觉里程计，两个的叫双目。单目里程计可以用来确定机器人运动的大致轨迹，而双目里程计可以进行深度信息的测量，因此可以较为精确地测量出移动的距离。但是如果双目里程计的两个摄像头之间的baseline比较小，对于远处的物体，双目也就相当于单目。</p>
+<h2 id="算法流程"><a href="#算法流程" class="headerlink" title="算法流程"></a>算法流程</h2><h3 id="输入图像"><a href="#输入图像" class="headerlink" title="输入图像"></a>输入图像</h3><p>假设$t$时刻和$t+1$时刻输入的图像分别是$I<em>t$和$I</em>{t+1}$，目前我采用的是来自KITTI的数据集。</p>
+<h3 id="畸变矫正"><a href="#畸变矫正" class="headerlink" title="畸变矫正"></a>畸变矫正</h3><p>关于畸变形成的原理和如何进行畸变矫正以及相机标定我会再写一篇详细的blog，这里采用的KITTI的数据集已经进行过矫正。</p>
+<h3 id="特征检测跟踪"><a href="#特征检测跟踪" class="headerlink" title="特征检测跟踪"></a>特征检测跟踪</h3><p>图像处理以及相关算法，给我印象对深刻，体会最深的就是特征，一个好的特征对图像处理至关重要，图像的研究以及相关算法大多是基于一定的特征，有可能是点，直线，边缘，甚至大牛们自己定义特征用以处理一定的问题。经典的特征提取算法有Harris角点检测，canny边缘检测，FAST，SIFT，SURF等。</p>
+<p>这里采用FAST(Features From Accelerated Segment Test)算法。先用FAST算法检测$I<em>t$的特征，然后用KLT算法进行跟踪特征到$I</em>{t+1}$中，由于KLT算法跟踪会丢失部分特征，当特征个数小于预先设置的阈值时，重新检测特征。</p>
+<h3 id="计算本质矩阵"><a href="#计算本质矩阵" class="headerlink" title="计算本质矩阵"></a>计算本质矩阵</h3><p>由于Essential Matrix具有5个自由度，因此用五点算法来估计本质矩阵。即如果匹配的特征是完美的，那么只需要五个点，但实际上存在误匹配，因此用RANSAC算法来筛选inlier。最终得到在两帧图像匹配点集合中具有最多的相应的Essential Matrix即为所求。</p>
+<h3 id="确定运动轨迹"><a href="#确定运动轨迹" class="headerlink" title="确定运动轨迹"></a>确定运动轨迹</h3><p>从Essential Matrix中求出旋转矩阵$R$和平移矩阵$t$，估计$scale$，并确定运动轨迹。这里的$scale$采用的是KITTI数据集所提供的。</p>
 <h2 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h2><p><img src="http://oo7y0cfqd.bkt.clouddn.com/result_01.png" alt="result"></p>
+<h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>当初开始做VO的时候看了很多论文，越看越懵逼。一大堆从来没听过的专业名词以及数学公式。毕竟视觉也是第一次接触，论文看的多了，也就明白了其中的原理，本来还有很多地方不是理解的很透彻，写blog的时候，把这个过程以及原理又大致梳理了一遍，才感觉到了原理上的融会贯通。不过，数学还是硬伤。论文以及原理看的多，却发现还是不会写代码，真的是菜啊。目前的单目VO也就能跑一下数据集，还没实现对实时轨迹的构建，也许以后还会做些优化。</p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -142,7 +143,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://yoursite.com/2017/04/10/2017-04-10/" data-title="单目视觉里程计算法流程 | 浮生小记" data-tsina="null" class="share clearfix">
+	  <div data-url="https://dhphub.github.io/2017/04/10/2017-04-10/" data-title="单目视觉里程计算法流程 | 浮生小记" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -180,7 +181,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#视觉里程计"><span class="toc-number">1.</span> <span class="toc-text">视觉里程计</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#算法流程"><span class="toc-number">2.</span> <span class="toc-text">算法流程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#输入图像"><span class="toc-number">2.1.</span> <span class="toc-text">输入图像</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#畸变矫正"><span class="toc-number">2.2.</span> <span class="toc-text">畸变矫正</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#特征检测跟踪"><span class="toc-number">2.3.</span> <span class="toc-text">特征检测跟踪</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#计算本质矩阵"><span class="toc-number">2.4.</span> <span class="toc-text">计算本质矩阵</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#确定运动轨迹"><span class="toc-number">2.5.</span> <span class="toc-text">确定运动轨迹</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#运行结果"><span class="toc-number">3.</span> <span class="toc-text">运行结果</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#视觉里程计"><span class="toc-number">1.</span> <span class="toc-text">视觉里程计</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#算法流程"><span class="toc-number">2.</span> <span class="toc-text">算法流程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#输入图像"><span class="toc-number">2.1.</span> <span class="toc-text">输入图像</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#畸变矫正"><span class="toc-number">2.2.</span> <span class="toc-text">畸变矫正</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#特征检测跟踪"><span class="toc-number">2.3.</span> <span class="toc-text">特征检测跟踪</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#计算本质矩阵"><span class="toc-number">2.4.</span> <span class="toc-text">计算本质矩阵</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#确定运动轨迹"><span class="toc-number">2.5.</span> <span class="toc-text">确定运动轨迹</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#运行结果"><span class="toc-number">3.</span> <span class="toc-text">运行结果</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#后记"><span class="toc-number">4.</span> <span class="toc-text">后记</span></a></li></ol>
  
   </div>
 
@@ -503,7 +504,6 @@ $(document).ready(function(){
 
 <!-- MathJax Begin -->
 <!-- mathjax config similar to math.stackexchange -->
-
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config({
     tex2jax: {
@@ -538,7 +538,24 @@ $(document).ready(function(){
 
 <!-- Tiny_search Begin -->
 
-<!-- Tiny_search End -->
+<!-- Tiny_search End --><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
 
   </body>
 </html>
