@@ -4,44 +4,31 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>试水文|翻译Hello World | 浮生小记</title>
+    <title>单目视觉里程计算法流程 | 浮生小记</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Onirii">
     
 
     
-    <meta name="description" content="快速开始写新文章1$ hexo new &quot;My new Post&quot;
-更多信息：Writing
-本地运行1$ hexo server
-更多信息：Server
-生成静态文件1$ hexo generate
-更多信息：Generating
-部署到Github1$ hexo deploy
-更多信息：Deployment">
+    <meta name="description" content="视觉里程计通过处理摄像头采集的连续帧的图像来确定摄像头/机器人的位姿，也即$6DOF$。
+用一个摄像头的是单目视觉里程计，两个的叫双目。单目里程计可以用来确定机器人运动的大致轨迹，而双目里程计可以进行深度信息的测量，因此可以较为精确地测量出移动的距离。但是如果双目里程计的两个摄像头之间的$baseline$比较小，对于远处的物体，双目也就相当于单目。
+算法流程输入图像假设$t$时刻和$t+1$时刻">
 <meta property="og:type" content="article">
-<meta property="og:title" content="试水文|翻译Hello World">
-<meta property="og:url" content="http://yoursite.com/2017/04/01/试水文/index.html">
+<meta property="og:title" content="单目视觉里程计算法流程">
+<meta property="og:url" content="http://yoursite.com/2017/04/10/2017-04-10/index.html">
 <meta property="og:site_name" content="浮生小记">
-<meta property="og:description" content="快速开始写新文章1$ hexo new &quot;My new Post&quot;
-更多信息：Writing
-本地运行1$ hexo server
-更多信息：Server
-生成静态文件1$ hexo generate
-更多信息：Generating
-部署到Github1$ hexo deploy
-更多信息：Deployment">
-<meta property="og:updated_time" content="2017-04-01T12:03:40.229Z">
+<meta property="og:description" content="视觉里程计通过处理摄像头采集的连续帧的图像来确定摄像头/机器人的位姿，也即$6DOF$。
+用一个摄像头的是单目视觉里程计，两个的叫双目。单目里程计可以用来确定机器人运动的大致轨迹，而双目里程计可以进行深度信息的测量，因此可以较为精确地测量出移动的距离。但是如果双目里程计的两个摄像头之间的$baseline$比较小，对于远处的物体，双目也就相当于单目。
+算法流程输入图像假设$t$时刻和$t+1$时刻">
+<meta property="og:image" content="http://oo7y0cfqd.bkt.clouddn.com/result_01.png">
+<meta property="og:updated_time" content="2017-04-11T00:44:39.677Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="试水文|翻译Hello World">
-<meta name="twitter:description" content="快速开始写新文章1$ hexo new &quot;My new Post&quot;
-更多信息：Writing
-本地运行1$ hexo server
-更多信息：Server
-生成静态文件1$ hexo generate
-更多信息：Generating
-部署到Github1$ hexo deploy
-更多信息：Deployment">
+<meta name="twitter:title" content="单目视觉里程计算法流程">
+<meta name="twitter:description" content="视觉里程计通过处理摄像头采集的连续帧的图像来确定摄像头/机器人的位姿，也即$6DOF$。
+用一个摄像头的是单目视觉里程计，两个的叫双目。单目里程计可以用来确定机器人运动的大致轨迹，而双目里程计可以进行深度信息的测量，因此可以较为精确地测量出移动的距离。但是如果双目里程计的两个摄像头之间的$baseline$比较小，对于远处的物体，双目也就相当于单目。
+算法流程输入图像假设$t$时刻和$t+1$时刻">
+<meta name="twitter:image" content="http://oo7y0cfqd.bkt.clouddn.com/result_01.png">
 <link rel="publisher" href="100192185558249413488">
 
     
@@ -104,14 +91,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/04/01/试水文/" title="试水文|翻译Hello World" itemprop="url">试水文|翻译Hello World</a>
+      <a href="/2017/04/10/2017-04-10/" title="单目视觉里程计算法流程" itemprop="url">单目视觉里程计算法流程</a>
   </h1>
   <p class="article-author">By
        
 		<a href="https://plus.google.com/100192185558249413488?rel=author" title="Onirii" target="_blank" itemprop="author">Onirii</a>
 		
   <p class="article-time">
-    <time datetime="2017-04-01T11:30:38.000Z" itemprop="datePublished"> 发表于 2017-04-01</time>
+    <time datetime="2017-04-10T14:53:05.000Z" itemprop="datePublished"> 发表于 2017-04-10</time>
     
   </p>
 </header>
@@ -120,23 +107,34 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#快速开始"><span class="toc-number">1.</span> <span class="toc-text">快速开始</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#写新文章"><span class="toc-number">1.1.</span> <span class="toc-text">写新文章</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#本地运行"><span class="toc-number">1.2.</span> <span class="toc-text">本地运行</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#生成静态文件"><span class="toc-number">1.3.</span> <span class="toc-text">生成静态文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#部署到Github"><span class="toc-number">1.4.</span> <span class="toc-text">部署到Github</span></a></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#视觉里程计"><span class="toc-number">1.</span> <span class="toc-text">视觉里程计</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#算法流程"><span class="toc-number">2.</span> <span class="toc-text">算法流程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#输入图像"><span class="toc-number">2.1.</span> <span class="toc-text">输入图像</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#畸变矫正"><span class="toc-number">2.2.</span> <span class="toc-text">畸变矫正</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#特征检测跟踪"><span class="toc-number">2.3.</span> <span class="toc-text">特征检测跟踪</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#计算本质矩阵"><span class="toc-number">2.4.</span> <span class="toc-text">计算本质矩阵</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#确定运动轨迹"><span class="toc-number">2.5.</span> <span class="toc-text">确定运动轨迹</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#运行结果"><span class="toc-number">3.</span> <span class="toc-text">运行结果</span></a></li></ol>
 		
 		</div>
 		
-		<h2 id="快速开始"><a href="#快速开始" class="headerlink" title="快速开始"></a>快速开始</h2><h3 id="写新文章"><a href="#写新文章" class="headerlink" title="写新文章"></a>写新文章</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My new Post"</span></div></pre></td></tr></table></figure>
-<p>更多信息：<a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="本地运行"><a href="#本地运行" class="headerlink" title="本地运行"></a>本地运行</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>更多信息：<a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="生成静态文件"><a href="#生成静态文件" class="headerlink" title="生成静态文件"></a>生成静态文件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>更多信息：<a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="部署到Github"><a href="#部署到Github" class="headerlink" title="部署到Github"></a>部署到Github</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>更多信息：<a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+		<h2 id="视觉里程计"><a href="#视觉里程计" class="headerlink" title="视觉里程计"></a>视觉里程计</h2><p>通过处理摄像头采集的连续帧的图像来确定摄像头/机器人的位姿，也即$6DOF$。</p>
+<p>用一个摄像头的是单目视觉里程计，两个的叫双目。单目里程计可以用来确定机器人运动的大致轨迹，而双目里程计可以进行深度信息的测量，因此可以较为精确地测量出移动的距离。但是如果双目里程计的两个摄像头之间的$baseline$比较小，对于远处的物体，双目也就相当于单目。</p>
+<h2 id="算法流程"><a href="#算法流程" class="headerlink" title="算法流程"></a>算法流程</h2><h3 id="输入图像"><a href="#输入图像" class="headerlink" title="输入图像"></a>输入图像</h3><p>假设$t$时刻和$t+1$时刻输入的图像分别是$I<em>t$和$I</em>{t+1}$，目前我采用的是来自$KITTI$的数据集。</p>
+<h3 id="畸变矫正"><a href="#畸变矫正" class="headerlink" title="畸变矫正"></a>畸变矫正</h3><p>关于畸变形成的原理和如何进行畸变矫正以及相机标定我会再写一篇详细的$blog$，这里采用的$KITTI$的数据集已经进行过矫正。</p>
+<h3 id="特征检测跟踪"><a href="#特征检测跟踪" class="headerlink" title="特征检测跟踪"></a>特征检测跟踪</h3><p>图像处理以及相关算法，给我印象对深刻，体会最深的就是特征，一个好的特征对图像处理至关重要，图像的研究以及相关算法大多是基于一定的特征，有可能是点，直线，边缘，甚至大牛们自己定义特征用以处理一定的问题。经典的特征提取算法有$Harris$角点检测，$canny$边缘检测，$FAST，SIFT，SURF$等。</p>
+<p>这里采用$FAST(Features\ From\ Accelerated\ Segment\ Test)$算法。先用FAST算法检测$I<em>t$的特征，然后用$KLT$算法进行跟踪特征到$I</em>{t+1}$中，由于$KLT$算法跟踪会丢失部分特征，当特征个数小于预先设置的阈值时，重新检测特征。</p>
+<h3 id="计算本质矩阵"><a href="#计算本质矩阵" class="headerlink" title="计算本质矩阵"></a>计算本质矩阵</h3><p>由于$Essential\ Matrix$具有5个自由度，因此用五点算法来估计本质矩阵。即如果匹配的特征是完美的，那么只需要五个点，但实际上存在误匹配，因此用$RANSAC$算法来筛选$inlier$。最终得到在两帧图像匹配点集合中具有最多的相应的$Essential\ Matrix$即为所求。</p>
+<h3 id="确定运动轨迹"><a href="#确定运动轨迹" class="headerlink" title="确定运动轨迹"></a>确定运动轨迹</h3><p>从$Essential\ Matrix$中求出旋转矩阵$R$和平移矩阵$t$，估计$scale$，并确定运动轨迹。这里的$scale$采用的是$KITTI$数据集所提供的。</p>
+<h2 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h2><p><img src="http://oo7y0cfqd.bkt.clouddn.com/result_01.png" alt="result"></p>
   
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
 
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/vision/">视觉</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/vision/">vision</a><a href="/tags/algorithm/">algorithm</a>
+  </div>
 
 </div>
 
@@ -144,7 +142,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://yoursite.com/2017/04/01/试水文/" data-title="试水文|翻译Hello World | 浮生小记" data-tsina="null" class="share clearfix">
+	  <div data-url="http://yoursite.com/2017/04/10/2017-04-10/" data-title="单目视觉里程计算法流程 | 浮生小记" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -157,19 +155,11 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2017/04/09/name/" title="name">
-  <strong>上一篇：</strong><br/>
-  <span>
-  name</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2017/03/31/hello-world/"  title="Hello World">
+<a href="/2017/04/09/name/"  title="name">
  <strong>下一篇：</strong><br/> 
- <span>Hello World
+ <span>name
 </span>
 </a>
 </div>
@@ -190,7 +180,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#快速开始"><span class="toc-number">1.</span> <span class="toc-text">快速开始</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#写新文章"><span class="toc-number">1.1.</span> <span class="toc-text">写新文章</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#本地运行"><span class="toc-number">1.2.</span> <span class="toc-text">本地运行</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#生成静态文件"><span class="toc-number">1.3.</span> <span class="toc-text">生成静态文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#部署到Github"><span class="toc-number">1.4.</span> <span class="toc-text">部署到Github</span></a></li></ol></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#视觉里程计"><span class="toc-number">1.</span> <span class="toc-text">视觉里程计</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#算法流程"><span class="toc-number">2.</span> <span class="toc-text">算法流程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#输入图像"><span class="toc-number">2.1.</span> <span class="toc-text">输入图像</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#畸变矫正"><span class="toc-number">2.2.</span> <span class="toc-text">畸变矫正</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#特征检测跟踪"><span class="toc-number">2.3.</span> <span class="toc-text">特征检测跟踪</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#计算本质矩阵"><span class="toc-number">2.4.</span> <span class="toc-text">计算本质矩阵</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#确定运动轨迹"><span class="toc-number">2.5.</span> <span class="toc-text">确定运动轨迹</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#运行结果"><span class="toc-number">3.</span> <span class="toc-text">运行结果</span></a></li></ol>
  
   </div>
 
@@ -513,6 +503,35 @@ $(document).ready(function(){
 
 <!-- MathJax Begin -->
 <!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
 
 
 <!-- MathJax End -->
