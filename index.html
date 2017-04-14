@@ -96,12 +96,12 @@
         
         <h2 id="视觉里程计"><a href="#视觉里程计" class="headerlink" title="视觉里程计"></a>视觉里程计</h2><p>通过处理摄像头采集的连续帧的图像来确定摄像头/机器人的位姿，也即6DOF。</p>
 <p>用一个摄像头的是单目视觉里程计，两个的叫双目。单目里程计可以用来确定机器人运动的大致轨迹，而双目里程计可以进行深度信息的测量，因此可以较为精确地测量出移动的距离。但是如果双目里程计的两个摄像头之间的baseline比较小，对于远处的物体，双目也就相当于单目。</p>
-<h2 id="算法流程"><a href="#算法流程" class="headerlink" title="算法流程"></a>算法流程</h2><h3 id="输入图像"><a href="#输入图像" class="headerlink" title="输入图像"></a>输入图像</h3><p>假设$t$时刻和$t+1$时刻输入的图像分别是$I<em>t$和$I</em>{t+1}$，目前我采用的是来自KITTI的数据集。</p>
+<h2 id="算法流程"><a href="#算法流程" class="headerlink" title="算法流程"></a>算法流程</h2><h3 id="输入图像"><a href="#输入图像" class="headerlink" title="输入图像"></a>输入图像</h3><p>假设$t$时刻和$t+1$时刻输入的图像分别是$I_{t}$，$I_{t+1}$，目前我采用的是来自KITTI的数据集。</p>
 <h3 id="畸变矫正"><a href="#畸变矫正" class="headerlink" title="畸变矫正"></a>畸变矫正</h3><p>关于畸变形成的原理和如何进行畸变矫正以及相机标定我会再写一篇详细的blog，这里采用的KITTI的数据集已经进行过矫正。</p>
 <h3 id="特征检测跟踪"><a href="#特征检测跟踪" class="headerlink" title="特征检测跟踪"></a>特征检测跟踪</h3><p>图像处理以及相关算法，给我印象对深刻，体会最深的就是特征，一个好的特征对图像处理至关重要，图像的研究以及相关算法大多是基于一定的特征，有可能是点，直线，边缘，甚至大牛们自己定义特征用以处理一定的问题。经典的特征提取算法有Harris角点检测，canny边缘检测，FAST，SIFT，SURF等。</p>
-<p>这里采用FAST(Features From Accelerated Segment Test)算法。先用FAST算法检测$I<em>t$的特征，然后用KLT算法进行跟踪特征到$I</em>{t+1}$中，由于KLT算法跟踪会丢失部分特征，当特征个数小于预先设置的阈值时，重新检测特征。</p>
+<p>这里采用FAST(Features From Accelerated Segment Test)算法。先用FAST算法检测$I_t$的特征，然后用KLT算法进行跟踪特征到$I_{t+1}$中，由于KLT算法每次跟踪时会丢失部分特征，当特征点的个数小于预先设置的阈值时，重新检测特征点。</p>
 <h3 id="计算本质矩阵"><a href="#计算本质矩阵" class="headerlink" title="计算本质矩阵"></a>计算本质矩阵</h3><p>由于Essential Matrix具有5个自由度，因此用五点算法来估计本质矩阵。即如果匹配的特征是完美的，那么只需要五个点，但实际上存在误匹配，因此用RANSAC算法来筛选inlier。最终得到在两帧图像匹配点集合中具有最多的相应的Essential Matrix即为所求。</p>
-<h3 id="确定运动轨迹"><a href="#确定运动轨迹" class="headerlink" title="确定运动轨迹"></a>确定运动轨迹</h3><p>从Essential Matrix中求出旋转矩阵$R$和平移矩阵$t$，估计$scale$，并确定运动轨迹。这里的$scale$采用的是KITTI数据集所提供的。</p>
+<h3 id="确定运动轨迹"><a href="#确定运动轨迹" class="headerlink" title="确定运动轨迹"></a>确定运动轨迹</h3><p>从Essential Matrix中求出旋转矩阵R和平移矩阵t，估计$scale$，并确定运动轨迹。这里的$scale$采用的是KITTI数据集所提供的。</p>
 <h2 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h2><p><img src="http://oo7y0cfqd.bkt.clouddn.com/result_01.png" alt="result"></p>
 <h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>当初开始做VO的时候看了很多论文，越看越懵逼。一大堆从来没听过的专业名词以及数学公式。毕竟视觉也是第一次接触，论文看的多了，也就明白了其中的原理，本来还有很多地方不是理解的很透彻，写blog的时候，把这个过程以及原理又大致梳理了一遍，才感觉到了原理上的融会贯通。不过，数学还是硬伤。论文以及原理看的多，却发现还是不会写代码，真的是菜啊。目前的单目VO也就能跑一下数据集，还没实现对实时轨迹的构建，也许以后还会做些优化。</p>
 
