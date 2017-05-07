@@ -105,23 +105,23 @@
 <img src="http://oo7y0cfqd.bkt.clouddn.com/0201.jpg" alt="坐标系">
 <p class="caption">坐标系</p>
 </div>
-<p>​ ## 世界坐标系与相机坐标系</p>
+<h2 id="世界坐标系与相机坐标系">世界坐标系与相机坐标系</h2>
 <p>世界坐标系是为了描述相机的位置而引入的，一般放在比较容易分析的地方，比如与相机坐标系重合。一般在双目系统中，默认左摄像头的坐标系与世界坐标系重合(如OpenCV)。三维坐标系的转换可以用旋转矩阵，欧拉角，四元数等多种方式描述，这里用旋转矩阵的方法。任何三维变换可以分解为旋转和平移，旋转由罗德里格斯公式给出，平移比较简单。最后我们得到如下公式：</p>
 <p><span class="math display">\[
 \left[ \begin{matrix}
-X_c \\\\ 
-Y_c \\\\ 
-Z_c \\\\ 
+X_c \\
+Y_c \\ 
+Z_c \\
 1
 \end{matrix} \right]
 = \left[ \begin{matrix}
-  R_{3*3} &amp; T_{3*1} \\\\
+  R_{3*3} &amp; T_{3*1} \\
   O_{1*3} &amp; I_{1*1}
   \end{matrix} \right]
 \left[ \begin{matrix}
-  X_w \\\\ 
-  Y_w \\\\ 
-  Z_w \\\\ 
+  X_w \\
+  Y_w \\
+  Z_w \\ 
   1
 \end{matrix} \right]
 \]</span> 其中 <span class="math inline">\(R_{3*3}\)</span> 可由旋转角度<span class="math inline">\(θ\)</span>确定，也可由旋转矩阵求出对应的转角以及转轴。 <span class="math inline">\(T_{3*1}\)</span> 是平移矢量。</p>
@@ -136,63 +136,70 @@ Z_c \\\\
 <p>用齐次坐标写成如下形式，<span class="math inline">\(X_c,Y_c,Z_c\)</span>即上式中的<span class="math inline">\(X,Y,Z\)</span> 。 <span class="math display">\[
 Z_c\left[
 \begin{matrix}
-x \\\\
-y \\\\
+x \\
+y \\
 1
 \end{matrix}
 \right]
 =\left[
 \begin{matrix}
-f &amp; 0 &amp; 0 &amp; 0 \\\\
-0 &amp; f &amp; 0 &amp; 0 \\\\
+f &amp; 0 &amp; 0 &amp; 0 \\
+0 &amp; f &amp; 0 &amp; 0 \\
 0 &amp; 0 &amp; 1 &amp; 0
 \end{matrix}
 \right]
 \left[\begin{matrix}
-X_c \\\\
-Y_c \\\\
-Z_c \\\\
+X_c \\
+Y_c \\
+Z_c \\
 1
 \end{matrix}\right]
-\]</span> ## 像平面与像素坐标系</p>
-<p><img src="http://oo7y0cfqd.bkt.clouddn.com/0203.jpg"> 其中，<span class="math inline">\(O_1\)</span>是像平面坐标系的原点，它在图片坐标系中的位置是<span class="math inline">\((u_0,v_0)\)</span>，图片坐标系的原点在图片的左上角，可以得到：</p>
+\]</span></p>
+<h2 id="像平面与像素坐标系">像平面与像素坐标系</h2>
+<div class="figure">
+<img src="http://oo7y0cfqd.bkt.clouddn.com/0203.jpg">
+
+</div>
+<p>其中，<span class="math inline">\(O_1\)</span>是像平面坐标系的原点，它在图片坐标系中的位置是<span class="math inline">\((u_0,v_0)\)</span>，图片坐标系的原点在图片的左上角，可以得到：</p>
 <p><span class="math inline">\(u=u_0+x/dx\)</span></p>
 <p><span class="math inline">\(v=v_0+y/dy\)</span></p>
 <p>用齐次坐标表示为： <span class="math display">\[
 \left[ \begin{matrix}
-u \\\\ v \\\\ 1
+u \\ v \\ 1
 \end{matrix} \right]=
 \left[ \begin{matrix}
-1/dx &amp; 0 &amp; u_0 \\\\ 0 &amp; 1/dy &amp; v_0 \\\\ 0 &amp; 0 &amp; 1
+1/dx &amp; 0 &amp; u_0 \\ 0 &amp; 1/dy &amp; v_0 \\ 0 &amp; 0 &amp; 1
 \end{matrix} \right]
 \left[ \begin{matrix}
-x \\\\ y  \\\\ 1
+x \\ y  \\ 1
 \end{matrix} \right]
-\]</span> 其中<span class="math inline">\(dx,dy\)</span>表示每个像素在横轴<span class="math inline">\(x\)</span>和纵轴<span class="math inline">\(y\)</span>上的物理尺寸，单位是毫米每像素，最终得到像素坐标系中的表示。 ## 最终表示公式 <span class="math display">\[
+\]</span> 其中<span class="math inline">\(dx,dy\)</span>表示每个像素在横轴<span class="math inline">\(x\)</span>和纵轴<span class="math inline">\(y\)</span>上的物理尺寸，单位是毫米每像素，最终得到像素坐标系中的表示。</p>
+<h2 id="最终表示公式">最终表示公式</h2>
+<p><span class="math display">\[
 Z_c
 \left[ \begin{matrix}
-u \\\\ v \\\\ 1
+u \\ v \\ 1
 \end{matrix} \right]=
 \left[ \begin{matrix}
-1/dx &amp; 0 &amp;u_0 \\\\ 0 &amp; 1/dy &amp; v_0 \\\\ 0 &amp; 0 &amp; 1
+1/dx &amp; 0 &amp;u_0 \\ 0 &amp; 1/dy &amp; v_0 \\ 0 &amp; 0 &amp; 1
 \end{matrix} \right]
 \left[ \begin{matrix}
-f &amp; 0 &amp; 0 &amp; 0 \\\\ 0 &amp; f &amp; 0 &amp; 0 \\\\ 0 &amp; 0 &amp; 1 &amp; 0
+f &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; f &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 1 &amp; 0
 \end{matrix} \right]
 \left[ \begin{matrix}
-R_{3*3} &amp; T_{3*1} \\\\ O_{1*3} &amp; I_{1*1}
+R_{3*3} &amp; T_{3*1} \\ O_{1*3} &amp; I_{1*1}
 \end{matrix} \right]
 \left[ \begin{matrix}
-X_w \\\\ Y_w \\\\ Z_w \\\\ 1
+X_w \\ Y_w \\ Z_w \\ 1
 \end{matrix} \right]=
 \left[ \begin{matrix}
-α_x &amp; 0 &amp; u_0 &amp; 0 \\\\ 0 &amp; α_y &amp; v_0 &amp; 0 \\\\ 0 &amp; 0 &amp; 1 &amp; 0
+α_x &amp; 0 &amp; u_0 &amp; 0 \\ 0 &amp; α_y &amp; v_0 &amp; 0 \\ 0 &amp; 0 &amp; 1 &amp; 0
 \end{matrix} \right]
 \left[ \begin{matrix}
-R_{3*3} &amp; T_{3*1} \\\\ O_{1*3} &amp; I_{1*1}
+R_{3*3} &amp; T_{3*1} \\ O_{1*3} &amp; I_{1*1}
 \end{matrix} \right]
 \left[ \begin{matrix}
-X_w \\\\ Y_w \\\\ Z_w \\\\ 1
+X_w \\ Y_w \\ Z_w \\ 1
 \end{matrix} \right]=M_1M_2X_w=MX_w
 \]</span></p>
 <p>式中，<span class="math inline">\(M_1\)</span>称为相机内参，<span class="math inline">\(M_2\)</span>称为相机外参。内参可通过相机标定来求解。</p>
