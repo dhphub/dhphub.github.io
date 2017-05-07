@@ -11,37 +11,31 @@
     
 
     
-    <meta name="description" content="概要在视觉里程计问题中，如何把图像中的像素点转化成世界坐标系下的真实点，通过真实点之间的关系来计算机器人或者相机的姿态，坐标系间的转换是基本问题。这四个坐标系分别是：
+    <meta name="description" content="概要
+在视觉里程计问题中，如何把图像中的像素点转化成世界坐标系下的真实点，通过真实点之间的关系来计算机器人或者相机的姿态，坐标系间的转换是基本问题。这四个坐标系分别是： * 世界坐标系(\(X_w,Y_w,Z_w\))，用来描述点在现实世界中的坐标。
 
-世界坐标系($X_w,Y_w,Z_w$)，用来描述点在现实世界中的坐标。
-
-相机坐标系($X_c,Y_c,Z_c$)，用来描述点在相机中的坐标。单位为毫米，相机位置为原点。
-
-像平面坐标系($x,y$)，用来描述点在图像所在平面中">
+相机坐标系(\(X_c,Y_c,Z_c\))，用来描述点在相机中的坐标。单位为毫米，相机位置为原点。
+像平面坐标系(\(x,y\))，用来描述点在">
 <meta property="og:type" content="article">
 <meta property="og:title" content="四个坐标系间转换">
 <meta property="og:url" content="https://dhphub.github.io/2017/04/14/2017-04-14/index.html">
 <meta property="og:site_name" content="浮生小记">
-<meta property="og:description" content="概要在视觉里程计问题中，如何把图像中的像素点转化成世界坐标系下的真实点，通过真实点之间的关系来计算机器人或者相机的姿态，坐标系间的转换是基本问题。这四个坐标系分别是：
+<meta property="og:description" content="概要
+在视觉里程计问题中，如何把图像中的像素点转化成世界坐标系下的真实点，通过真实点之间的关系来计算机器人或者相机的姿态，坐标系间的转换是基本问题。这四个坐标系分别是： * 世界坐标系(\(X_w,Y_w,Z_w\))，用来描述点在现实世界中的坐标。
 
-世界坐标系($X_w,Y_w,Z_w$)，用来描述点在现实世界中的坐标。
-
-相机坐标系($X_c,Y_c,Z_c$)，用来描述点在相机中的坐标。单位为毫米，相机位置为原点。
-
-像平面坐标系($x,y$)，用来描述点在图像所在平面中">
+相机坐标系(\(X_c,Y_c,Z_c\))，用来描述点在相机中的坐标。单位为毫米，相机位置为原点。
+像平面坐标系(\(x,y\))，用来描述点在">
 <meta property="og:image" content="http://oo7y0cfqd.bkt.clouddn.com/0201.jpg">
 <meta property="og:image" content="http://oo7y0cfqd.bkt.clouddn.com/0202.jpg">
 <meta property="og:image" content="http://oo7y0cfqd.bkt.clouddn.com/0203.jpg">
-<meta property="og:updated_time" content="2017-05-06T11:53:32.155Z">
+<meta property="og:updated_time" content="2017-05-07T03:15:57.535Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="四个坐标系间转换">
-<meta name="twitter:description" content="概要在视觉里程计问题中，如何把图像中的像素点转化成世界坐标系下的真实点，通过真实点之间的关系来计算机器人或者相机的姿态，坐标系间的转换是基本问题。这四个坐标系分别是：
+<meta name="twitter:description" content="概要
+在视觉里程计问题中，如何把图像中的像素点转化成世界坐标系下的真实点，通过真实点之间的关系来计算机器人或者相机的姿态，坐标系间的转换是基本问题。这四个坐标系分别是： * 世界坐标系(\(X_w,Y_w,Z_w\))，用来描述点在现实世界中的坐标。
 
-世界坐标系($X_w,Y_w,Z_w$)，用来描述点在现实世界中的坐标。
-
-相机坐标系($X_c,Y_c,Z_c$)，用来描述点在相机中的坐标。单位为毫米，相机位置为原点。
-
-像平面坐标系($x,y$)，用来描述点在图像所在平面中">
+相机坐标系(\(X_c,Y_c,Z_c\))，用来描述点在相机中的坐标。单位为毫米，相机位置为原点。
+像平面坐标系(\(x,y\))，用来描述点在">
 <meta name="twitter:image" content="http://oo7y0cfqd.bkt.clouddn.com/0201.jpg">
 <link rel="publisher" href="100192185558249413488">
 
@@ -121,36 +115,112 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#概要"><span class="toc-number">1.</span> <span class="toc-text">概要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#世界坐标系与相机坐标系"><span class="toc-number">2.</span> <span class="toc-text">世界坐标系与相机坐标系</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#相机坐标系与像平面坐标系"><span class="toc-number">3.</span> <span class="toc-text">相机坐标系与像平面坐标系</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#像平面与像素坐标系"><span class="toc-number">4.</span> <span class="toc-text">像平面与像素坐标系</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#最终表示公式"><span class="toc-number">5.</span> <span class="toc-text">最终表示公式</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#概要"><span class="toc-number">1.</span> <span class="toc-text">概要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#相机坐标系与像平面坐标系"><span class="toc-number">2.</span> <span class="toc-text">相机坐标系与像平面坐标系</span></a></li></ol>
 		
 		</div>
 		
-		<h2 id="概要"><a href="#概要" class="headerlink" title="概要"></a>概要</h2><p>在视觉里程计问题中，如何把图像中的像素点转化成世界坐标系下的真实点，通过真实点之间的关系来计算机器人或者相机的姿态，坐标系间的转换是基本问题。这四个坐标系分别是：</p>
+		<h2 id="概要">概要</h2>
+<p>在视觉里程计问题中，如何把图像中的像素点转化成世界坐标系下的真实点，通过真实点之间的关系来计算机器人或者相机的姿态，坐标系间的转换是基本问题。这四个坐标系分别是： * 世界坐标系(<span class="math inline">\(X_w,Y_w,Z_w\)</span>)，用来描述点在现实世界中的坐标。</p>
 <ul>
-<li><p>世界坐标系($X_w,Y_w,Z_w$)，用来描述点在现实世界中的坐标。</p>
-</li>
-<li><p>相机坐标系($X_c,Y_c,Z_c$)，用来描述点在相机中的坐标。单位为毫米，相机位置为原点。</p>
-</li>
-<li><p>像平面坐标系($x,y$)，用来描述点在图像所在平面中的位置，原点在$Z_c$轴上。单位为毫米。</p>
-</li>
-<li><p>像素坐标系($u,v$)，点在图像中的像素位置，一般原点在图像左下角或者左上角。单位为像素。</p>
-<p><img src="http://oo7y0cfqd.bkt.clouddn.com/0201.jpg" alt="坐标系"></p>
-<p>​</p>
-<h2 id="世界坐标系与相机坐标系"><a href="#世界坐标系与相机坐标系" class="headerlink" title="世界坐标系与相机坐标系"></a>世界坐标系与相机坐标系</h2></li>
+<li><p>相机坐标系(<span class="math inline">\(X_c,Y_c,Z_c\)</span>)，用来描述点在相机中的坐标。单位为毫米，相机位置为原点。</p></li>
+<li><p>像平面坐标系(<span class="math inline">\(x,y\)</span>)，用来描述点在图像所在平面中的位置，原点在<span class="math inline">\(Z_c\)</span>轴上。单位为毫米。</p></li>
+<li><p>像素坐标系(<span class="math inline">\(u,v\)</span>)，点在图像中的像素位置，一般原点在图像左下角或者左上角。单位为像素。</p></li>
 </ul>
-<p>世界坐标系是为了描述相机的位置而引入的，一般放在比较容易分析的地方，比如与相机坐标系重合。一般在双目系统中，默认左摄像头的坐标系与世界坐标系重合(如OpenCV)。三维坐标系的转换可以用旋转矩阵，欧拉角，四元数等多种方式描述，这里用旋转矩阵的方法。任何三维变换可以分解为旋转和平移，旋转由罗德里格斯公式给出，平移比较简单。最后我们得到如下公式：<br>$$<br>\left[\begin{matrix}<br>X_c\Y_c\Z<em>c\1<br>\end{matrix}\right]<br>=\left[<br>  \begin{matrix}<br>  R</em>{3<em>3} &amp; T_{3</em>1} \<br>  O<em>{1*3} &amp; I</em>{1*1}<br>  \end{matrix}<br>  \right]<br>  \left[\begin{matrix}<br>  X_w\Y_w\Z_w\1<br>\end{matrix}\right]<br>$$</p>
-<p>其中$R<em>{3*3}$可由旋转角度$θ$确定，也可由旋转矩阵求出对应的转角以及转轴。$T</em>{3*1}$是平移矢量。</p>
-<h2 id="相机坐标系与像平面坐标系"><a href="#相机坐标系与像平面坐标系" class="headerlink" title="相机坐标系与像平面坐标系"></a>相机坐标系与像平面坐标系</h2><p><img src="http://oo7y0cfqd.bkt.clouddn.com/0202.jpg" alt=""></p>
+<div class="figure">
+<img src="http://oo7y0cfqd.bkt.clouddn.com/0201.jpg" alt="坐标系">
+<p class="caption">坐标系</p>
+</div>
+<p>​ ## 世界坐标系与相机坐标系</p>
+<p>世界坐标系是为了描述相机的位置而引入的，一般放在比较容易分析的地方，比如与相机坐标系重合。一般在双目系统中，默认左摄像头的坐标系与世界坐标系重合(如OpenCV)。三维坐标系的转换可以用旋转矩阵，欧拉角，四元数等多种方式描述，这里用旋转矩阵的方法。任何三维变换可以分解为旋转和平移，旋转由罗德里格斯公式给出，平移比较简单。最后我们得到如下公式：</p>
+<p><span class="math display">\[
+\left[ \begin{matrix}
+X_c \\\\ 
+Y_c \\\\ 
+Z_c \\\\ 
+1
+\end{matrix} \right]
+= \left[ \begin{matrix}
+  R_{3*3} &amp; T_{3*1} \\\\
+  O_{1*3} &amp; I_{1*1}
+  \end{matrix} \right]
+\left[ \begin{matrix}
+  X_w \\\\ 
+  Y_w \\\\ 
+  Z_w \\\\ 
+  1
+\end{matrix} \right]
+\]</span> 其中 <span class="math inline">\(R_{3*3}\)</span> 可由旋转角度<span class="math inline">\(θ\)</span>确定，也可由旋转矩阵求出对应的转角以及转轴。 <span class="math inline">\(T_{3*1}\)</span> 是平移矢量。</p>
+<h2 id="相机坐标系与像平面坐标系">相机坐标系与像平面坐标系</h2>
+<div class="figure">
+<img src="http://oo7y0cfqd.bkt.clouddn.com/0202.jpg">
+
+</div>
 <p>根据小孔成像的模型，由上图的几何关系得到：</p>
-<p>$x=fX/Z$，即$Z*x=fX$</p>
-<p>$y=fY/Z$，即$Z*y=fY$</p>
-<p>用齐次坐标写成如下形式，$X_c,Y_c,Z_c$即上式中的$X,Y,Z$ 。</p>
-<p>$$<br>Z_c\left[<br>\begin{matrix}<br>x \<br>y \<br>1<br>\end{matrix}<br>\right]<br>=\left[<br>\begin{matrix}<br>f &amp; 0 &amp; 0 &amp; 0 \<br>0 &amp; f &amp; 0 &amp; 0 \<br>0 &amp; 0 &amp; 1 &amp; 0<br>\end{matrix}<br>\right]<br>\left[\begin{matrix}<br>X_c \<br>Y_c \<br>Z_c \<br>1<br>\end{matrix}\right]<br>$$</p>
-<h2 id="像平面与像素坐标系"><a href="#像平面与像素坐标系" class="headerlink" title="像平面与像素坐标系"></a>像平面与像素坐标系</h2><p><img src="http://oo7y0cfqd.bkt.clouddn.com/0203.jpg" alt=""><br>其中，$O_1$是像平面坐标系的原点，它在图片坐标系中的位置是$(u_0,v_0)$，图片坐标系的原点在图片的左上角，可以得到：</p>
-<p>$u=u_0+x/dx$</p>
-<p>$v=v_0+y/dy$</p>
-<p>用齐次坐标表示为：<br>$$<br>\left[\begin{matrix}<br>u \ v \ 1<br>\end{matrix}\right]=<br>\left[\begin{matrix}<br>1/dx &amp; 0 &amp; u_0 \ 0 &amp; 1/dy &amp; v_0 \ 0 &amp; 0 &amp; 1<br>\end{matrix}\right]<br>\left[\begin{matrix}<br>x \ y  \ 1<br>\end{matrix}\right]<br>$$<br>其中$dx,dy$表示每个像素在横轴$x$和纵轴$y$上的物理尺寸，单位是毫米每像素，最终得到像素坐标系中的表示。</p>
-<h2 id="最终表示公式"><a href="#最终表示公式" class="headerlink" title="最终表示公式"></a>最终表示公式</h2><p>$$<br>Z_c\left[\begin{matrix}<br>u\v\1<br>\end{matrix}\right]=<br>\left[\begin{matrix}<br>1/dx&amp;0&amp;u_0\0&amp;1/dy&amp;v<em>0\0&amp;0&amp;1<br>\end{matrix}\right]<br>\left[\begin{matrix}<br>f&amp;0&amp;0&amp;0\0&amp;f&amp;0&amp;0\0&amp;0&amp;1&amp;0<br>\end{matrix}\right]<br>\left[\begin{matrix}<br>R</em>{3<em>3}&amp;T_{3</em>1}\O<em>{1*3}&amp;I</em>{1<em>1}<br>\end{matrix}\right]<br>\left[\begin{matrix}<br>X_w\Y_w\Z_w\1<br>\end{matrix}\right]=<br>\left[\begin{matrix}<br>α_x&amp;0&amp;u_0&amp;0\0&amp;α_y&amp;v<em>0&amp;0\0&amp;0&amp;1&amp;0<br>\end{matrix}\right]<br>\left[\begin{matrix}<br>R</em>{3</em>3}&amp;T<em>{3*1}\O</em>{1<em>3}&amp;I_{1</em>1}<br>\end{matrix}\right]<br>\left[\begin{matrix}<br>X_w\Y_w\Z_w\1<br>\end{matrix}\right]=M_1M_2X_w=MX_w<br>$$<br>式中，$M_1$称为相机内参，$M_2$称为相机外参。内参可通过相机标定来求解。</p>
+<p><span class="math inline">\(x=fX/Z\)</span>，即<span class="math inline">\(Z*x=fX\)</span></p>
+<p><span class="math inline">\(y=fY/Z\)</span>，即<span class="math inline">\(Z*y=fY\)</span></p>
+<p>用齐次坐标写成如下形式，<span class="math inline">\(X_c,Y_c,Z_c\)</span>即上式中的<span class="math inline">\(X,Y,Z\)</span> 。 <span class="math display">\[
+Z_c\left[
+\begin{matrix}
+x \\\\
+y \\\\
+1
+\end{matrix}
+\right]
+=\left[
+\begin{matrix}
+f &amp; 0 &amp; 0 &amp; 0 \\\\
+0 &amp; f &amp; 0 &amp; 0 \\\\
+0 &amp; 0 &amp; 1 &amp; 0
+\end{matrix}
+\right]
+\left[\begin{matrix}
+X_c \\\\
+Y_c \\\\
+Z_c \\\\
+1
+\end{matrix}\right]
+\]</span> ## 像平面与像素坐标系</p>
+<p><img src="http://oo7y0cfqd.bkt.clouddn.com/0203.jpg"> 其中，<span class="math inline">\(O_1\)</span>是像平面坐标系的原点，它在图片坐标系中的位置是<span class="math inline">\((u_0,v_0)\)</span>，图片坐标系的原点在图片的左上角，可以得到：</p>
+<p><span class="math inline">\(u=u_0+x/dx\)</span></p>
+<p><span class="math inline">\(v=v_0+y/dy\)</span></p>
+<p>用齐次坐标表示为： <span class="math display">\[
+\left[ \begin{matrix}
+u \\\\ v \\\\ 1
+\end{matrix} \right]=
+\left[ \begin{matrix}
+1/dx &amp; 0 &amp; u_0 \\\\ 0 &amp; 1/dy &amp; v_0 \\\\ 0 &amp; 0 &amp; 1
+\end{matrix} \right]
+\left[ \begin{matrix}
+x \\\\ y  \\\\ 1
+\end{matrix} \right]
+\]</span> 其中<span class="math inline">\(dx,dy\)</span>表示每个像素在横轴<span class="math inline">\(x\)</span>和纵轴<span class="math inline">\(y\)</span>上的物理尺寸，单位是毫米每像素，最终得到像素坐标系中的表示。 ## 最终表示公式 <span class="math display">\[
+Z_c
+\left[ \begin{matrix}
+u \\\\ v \\\\ 1
+\end{matrix} \right]=
+\left[ \begin{matrix}
+1/dx &amp; 0 &amp;u_0 \\\\ 0 &amp; 1/dy &amp; v_0 \\\\ 0 &amp; 0 &amp; 1
+\end{matrix} \right]
+\left[ \begin{matrix}
+f &amp; 0 &amp; 0 &amp; 0 \\\\ 0 &amp; f &amp; 0 &amp; 0 \\\\ 0 &amp; 0 &amp; 1 &amp; 0
+\end{matrix} \right]
+\left[ \begin{matrix}
+R_{3*3} &amp; T_{3*1} \\\\ O_{1*3} &amp; I_{1*1}
+\end{matrix} \right]
+\left[ \begin{matrix}
+X_w \\\\ Y_w \\\\ Z_w \\\\ 1
+\end{matrix} \right]=
+\left[ \begin{matrix}
+α_x &amp; 0 &amp; u_0 &amp; 0 \\\\ 0 &amp; α_y &amp; v_0 &amp; 0 \\\\ 0 &amp; 0 &amp; 1 &amp; 0
+\end{matrix} \right]
+\left[ \begin{matrix}
+R_{3*3} &amp; T_{3*1} \\\\ O_{1*3} &amp; I_{1*1}
+\end{matrix} \right]
+\left[ \begin{matrix}
+X_w \\\\ Y_w \\\\ Z_w \\\\ 1
+\end{matrix} \right]=M_1M_2X_w=MX_w
+\]</span></p>
+<p>式中，<span class="math inline">\(M_1\)</span>称为相机内参，<span class="math inline">\(M_2\)</span>称为相机外参。内参可通过相机标定来求解。</p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -211,7 +281,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#概要"><span class="toc-number">1.</span> <span class="toc-text">概要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#世界坐标系与相机坐标系"><span class="toc-number">2.</span> <span class="toc-text">世界坐标系与相机坐标系</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#相机坐标系与像平面坐标系"><span class="toc-number">3.</span> <span class="toc-text">相机坐标系与像平面坐标系</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#像平面与像素坐标系"><span class="toc-number">4.</span> <span class="toc-text">像平面与像素坐标系</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#最终表示公式"><span class="toc-number">5.</span> <span class="toc-text">最终表示公式</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#概要"><span class="toc-number">1.</span> <span class="toc-text">概要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#相机坐标系与像平面坐标系"><span class="toc-number">2.</span> <span class="toc-text">相机坐标系与像平面坐标系</span></a></li></ol>
  
   </div>
 

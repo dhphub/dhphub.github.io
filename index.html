@@ -94,32 +94,108 @@
 </header>
     <div class="article-content">
         
-        <h2 id="概要"><a href="#概要" class="headerlink" title="概要"></a>概要</h2><p>在视觉里程计问题中，如何把图像中的像素点转化成世界坐标系下的真实点，通过真实点之间的关系来计算机器人或者相机的姿态，坐标系间的转换是基本问题。这四个坐标系分别是：</p>
+        <h2 id="概要">概要</h2>
+<p>在视觉里程计问题中，如何把图像中的像素点转化成世界坐标系下的真实点，通过真实点之间的关系来计算机器人或者相机的姿态，坐标系间的转换是基本问题。这四个坐标系分别是： * 世界坐标系(<span class="math inline">\(X_w,Y_w,Z_w\)</span>)，用来描述点在现实世界中的坐标。</p>
 <ul>
-<li><p>世界坐标系($X_w,Y_w,Z_w$)，用来描述点在现实世界中的坐标。</p>
-</li>
-<li><p>相机坐标系($X_c,Y_c,Z_c$)，用来描述点在相机中的坐标。单位为毫米，相机位置为原点。</p>
-</li>
-<li><p>像平面坐标系($x,y$)，用来描述点在图像所在平面中的位置，原点在$Z_c$轴上。单位为毫米。</p>
-</li>
-<li><p>像素坐标系($u,v$)，点在图像中的像素位置，一般原点在图像左下角或者左上角。单位为像素。</p>
-<p><img src="http://oo7y0cfqd.bkt.clouddn.com/0201.jpg" alt="坐标系"></p>
-<p>​</p>
-<h2 id="世界坐标系与相机坐标系"><a href="#世界坐标系与相机坐标系" class="headerlink" title="世界坐标系与相机坐标系"></a>世界坐标系与相机坐标系</h2></li>
+<li><p>相机坐标系(<span class="math inline">\(X_c,Y_c,Z_c\)</span>)，用来描述点在相机中的坐标。单位为毫米，相机位置为原点。</p></li>
+<li><p>像平面坐标系(<span class="math inline">\(x,y\)</span>)，用来描述点在图像所在平面中的位置，原点在<span class="math inline">\(Z_c\)</span>轴上。单位为毫米。</p></li>
+<li><p>像素坐标系(<span class="math inline">\(u,v\)</span>)，点在图像中的像素位置，一般原点在图像左下角或者左上角。单位为像素。</p></li>
 </ul>
-<p>世界坐标系是为了描述相机的位置而引入的，一般放在比较容易分析的地方，比如与相机坐标系重合。一般在双目系统中，默认左摄像头的坐标系与世界坐标系重合(如OpenCV)。三维坐标系的转换可以用旋转矩阵，欧拉角，四元数等多种方式描述，这里用旋转矩阵的方法。任何三维变换可以分解为旋转和平移，旋转由罗德里格斯公式给出，平移比较简单。最后我们得到如下公式：<br>$$<br>\left[\begin{matrix}<br>X_c\Y_c\Z<em>c\1<br>\end{matrix}\right]<br>=\left[<br>  \begin{matrix}<br>  R</em>{3<em>3} &amp; T_{3</em>1} \<br>  O<em>{1*3} &amp; I</em>{1*1}<br>  \end{matrix}<br>  \right]<br>  \left[\begin{matrix}<br>  X_w\Y_w\Z_w\1<br>\end{matrix}\right]<br>$$</p>
-<p>其中$R<em>{3*3}$可由旋转角度$θ$确定，也可由旋转矩阵求出对应的转角以及转轴。$T</em>{3*1}$是平移矢量。</p>
-<h2 id="相机坐标系与像平面坐标系"><a href="#相机坐标系与像平面坐标系" class="headerlink" title="相机坐标系与像平面坐标系"></a>相机坐标系与像平面坐标系</h2><p><img src="http://oo7y0cfqd.bkt.clouddn.com/0202.jpg" alt=""></p>
+<div class="figure">
+<img src="http://oo7y0cfqd.bkt.clouddn.com/0201.jpg" alt="坐标系">
+<p class="caption">坐标系</p>
+</div>
+<p>​ ## 世界坐标系与相机坐标系</p>
+<p>世界坐标系是为了描述相机的位置而引入的，一般放在比较容易分析的地方，比如与相机坐标系重合。一般在双目系统中，默认左摄像头的坐标系与世界坐标系重合(如OpenCV)。三维坐标系的转换可以用旋转矩阵，欧拉角，四元数等多种方式描述，这里用旋转矩阵的方法。任何三维变换可以分解为旋转和平移，旋转由罗德里格斯公式给出，平移比较简单。最后我们得到如下公式：</p>
+<p><span class="math display">\[
+\left[ \begin{matrix}
+X_c \\\\ 
+Y_c \\\\ 
+Z_c \\\\ 
+1
+\end{matrix} \right]
+= \left[ \begin{matrix}
+  R_{3*3} &amp; T_{3*1} \\\\
+  O_{1*3} &amp; I_{1*1}
+  \end{matrix} \right]
+\left[ \begin{matrix}
+  X_w \\\\ 
+  Y_w \\\\ 
+  Z_w \\\\ 
+  1
+\end{matrix} \right]
+\]</span> 其中 <span class="math inline">\(R_{3*3}\)</span> 可由旋转角度<span class="math inline">\(θ\)</span>确定，也可由旋转矩阵求出对应的转角以及转轴。 <span class="math inline">\(T_{3*1}\)</span> 是平移矢量。</p>
+<h2 id="相机坐标系与像平面坐标系">相机坐标系与像平面坐标系</h2>
+<div class="figure">
+<img src="http://oo7y0cfqd.bkt.clouddn.com/0202.jpg">
+
+</div>
 <p>根据小孔成像的模型，由上图的几何关系得到：</p>
-<p>$x=fX/Z$，即$Z*x=fX$</p>
-<p>$y=fY/Z$，即$Z*y=fY$</p>
-<p>用齐次坐标写成如下形式，$X_c,Y_c,Z_c$即上式中的$X,Y,Z$ 。</p>
-<p>$$<br>Z_c\left[<br>\begin{matrix}<br>x \<br>y \<br>1<br>\end{matrix}<br>\right]<br>=\left[<br>\begin{matrix}<br>f &amp; 0 &amp; 0 &amp; 0 \<br>0 &amp; f &amp; 0 &amp; 0 \<br>0 &amp; 0 &amp; 1 &amp; 0<br>\end{matrix}<br>\right]<br>\left[\begin{matrix}<br>X_c \<br>Y_c \<br>Z_c \<br>1<br>\end{matrix}\right]<br>$$</p>
-<h2 id="像平面与像素坐标系"><a href="#像平面与像素坐标系" class="headerlink" title="像平面与像素坐标系"></a>像平面与像素坐标系</h2><p><img src="http://oo7y0cfqd.bkt.clouddn.com/0203.jpg" alt=""><br>其中，$O_1$是像平面坐标系的原点，它在图片坐标系中的位置是$(u_0,v_0)$，图片坐标系的原点在图片的左上角，可以得到：</p>
-<p>$u=u_0+x/dx$</p>
-<p>$v=v_0+y/dy$</p>
-<p>用齐次坐标表示为：<br>$$<br>\left[\begin{matrix}<br>u \ v \ 1<br>\end{matrix}\right]=<br>\left[\begin{matrix}<br>1/dx &amp; 0 &amp; u_0 \ 0 &amp; 1/dy &amp; v_0 \ 0 &amp; 0 &amp; 1<br>\end{matrix}\right]<br>\left[\begin{matrix}<br>x \ y  \ 1<br>\end{matrix}\right]<br>$$<br>其中$dx,dy$表示每个像素在横轴$x$和纵轴$y$上的物理尺寸，单位是毫米每像素，最终得到像素坐标系中的表示。</p>
-<h2 id="最终表示公式"><a href="#最终表示公式" class="headerlink" title="最终表示公式"></a>最终表示公式</h2><p>$$<br>Z_c\left[\begin{matrix}<br>u\v\1<br>\end{matrix}\right]=<br>\left[\begin{matrix}<br>1/dx&amp;0&amp;u_0\0&amp;1/dy&amp;v<em>0\0&amp;0&amp;1<br>\end{matrix}\right]<br>\left[\begin{matrix}<br>f&amp;0&amp;0&amp;0\0&amp;f&amp;0&amp;0\0&amp;0&amp;1&amp;0<br>\end{matrix}\right]<br>\left[\begin{matrix}<br>R</em>{3<em>3}&amp;T_{3</em>1}\O<em>{1*3}&amp;I</em>{1<em>1}<br>\end{matrix}\right]<br>\left[\begin{matrix}<br>X_w\Y_w\Z_w\1<br>\end{matrix}\right]=<br>\left[\begin{matrix}<br>α_x&amp;0&amp;u_0&amp;0\0&amp;α_y&amp;v<em>0&amp;0\0&amp;0&amp;1&amp;0<br>\end{matrix}\right]<br>\left[\begin{matrix}<br>R</em>{3</em>3}&amp;T<em>{3*1}\O</em>{1<em>3}&amp;I_{1</em>1}<br>\end{matrix}\right]<br>\left[\begin{matrix}<br>X_w\Y_w\Z_w\1<br>\end{matrix}\right]=M_1M_2X_w=MX_w<br>$$<br>式中，$M_1$称为相机内参，$M_2$称为相机外参。内参可通过相机标定来求解。</p>
+<p><span class="math inline">\(x=fX/Z\)</span>，即<span class="math inline">\(Z*x=fX\)</span></p>
+<p><span class="math inline">\(y=fY/Z\)</span>，即<span class="math inline">\(Z*y=fY\)</span></p>
+<p>用齐次坐标写成如下形式，<span class="math inline">\(X_c,Y_c,Z_c\)</span>即上式中的<span class="math inline">\(X,Y,Z\)</span> 。 <span class="math display">\[
+Z_c\left[
+\begin{matrix}
+x \\\\
+y \\\\
+1
+\end{matrix}
+\right]
+=\left[
+\begin{matrix}
+f &amp; 0 &amp; 0 &amp; 0 \\\\
+0 &amp; f &amp; 0 &amp; 0 \\\\
+0 &amp; 0 &amp; 1 &amp; 0
+\end{matrix}
+\right]
+\left[\begin{matrix}
+X_c \\\\
+Y_c \\\\
+Z_c \\\\
+1
+\end{matrix}\right]
+\]</span> ## 像平面与像素坐标系</p>
+<p><img src="http://oo7y0cfqd.bkt.clouddn.com/0203.jpg"> 其中，<span class="math inline">\(O_1\)</span>是像平面坐标系的原点，它在图片坐标系中的位置是<span class="math inline">\((u_0,v_0)\)</span>，图片坐标系的原点在图片的左上角，可以得到：</p>
+<p><span class="math inline">\(u=u_0+x/dx\)</span></p>
+<p><span class="math inline">\(v=v_0+y/dy\)</span></p>
+<p>用齐次坐标表示为： <span class="math display">\[
+\left[ \begin{matrix}
+u \\\\ v \\\\ 1
+\end{matrix} \right]=
+\left[ \begin{matrix}
+1/dx &amp; 0 &amp; u_0 \\\\ 0 &amp; 1/dy &amp; v_0 \\\\ 0 &amp; 0 &amp; 1
+\end{matrix} \right]
+\left[ \begin{matrix}
+x \\\\ y  \\\\ 1
+\end{matrix} \right]
+\]</span> 其中<span class="math inline">\(dx,dy\)</span>表示每个像素在横轴<span class="math inline">\(x\)</span>和纵轴<span class="math inline">\(y\)</span>上的物理尺寸，单位是毫米每像素，最终得到像素坐标系中的表示。 ## 最终表示公式 <span class="math display">\[
+Z_c
+\left[ \begin{matrix}
+u \\\\ v \\\\ 1
+\end{matrix} \right]=
+\left[ \begin{matrix}
+1/dx &amp; 0 &amp;u_0 \\\\ 0 &amp; 1/dy &amp; v_0 \\\\ 0 &amp; 0 &amp; 1
+\end{matrix} \right]
+\left[ \begin{matrix}
+f &amp; 0 &amp; 0 &amp; 0 \\\\ 0 &amp; f &amp; 0 &amp; 0 \\\\ 0 &amp; 0 &amp; 1 &amp; 0
+\end{matrix} \right]
+\left[ \begin{matrix}
+R_{3*3} &amp; T_{3*1} \\\\ O_{1*3} &amp; I_{1*1}
+\end{matrix} \right]
+\left[ \begin{matrix}
+X_w \\\\ Y_w \\\\ Z_w \\\\ 1
+\end{matrix} \right]=
+\left[ \begin{matrix}
+α_x &amp; 0 &amp; u_0 &amp; 0 \\\\ 0 &amp; α_y &amp; v_0 &amp; 0 \\\\ 0 &amp; 0 &amp; 1 &amp; 0
+\end{matrix} \right]
+\left[ \begin{matrix}
+R_{3*3} &amp; T_{3*1} \\\\ O_{1*3} &amp; I_{1*1}
+\end{matrix} \right]
+\left[ \begin{matrix}
+X_w \\\\ Y_w \\\\ Z_w \\\\ 1
+\end{matrix} \right]=M_1M_2X_w=MX_w
+\]</span></p>
+<p>式中，<span class="math inline">\(M_1\)</span>称为相机内参，<span class="math inline">\(M_2\)</span>称为相机外参。内参可通过相机标定来求解。</p>
 
         
         
@@ -182,16 +258,15 @@
 </header>
     <div class="article-content">
         
-        <h2 id="视觉里程计"><a href="#视觉里程计" class="headerlink" title="视觉里程计"></a>视觉里程计</h2><p>通过处理摄像头采集的连续帧的图像来确定摄像头/机器人的位姿，也即6DOF。</p>
+        <h2 id="视觉里程计">视觉里程计</h2>
+<p>通过处理摄像头采集的连续帧的图像来确定摄像头/机器人的位姿，也即6DOF。</p>
 <p>用一个摄像头的是单目视觉里程计，两个的叫双目。单目里程计可以用来确定机器人运动的大致轨迹，而双目里程计可以进行深度信息的测量，因此可以较为精确地测量出移动的距离。但是如果双目里程计的两个摄像头之间的baseline比较小，对于远处的物体，双目也就相当于单目。</p>
-<h2 id="算法流程"><a href="#算法流程" class="headerlink" title="算法流程"></a>算法流程</h2><h3 id="输入图像"><a href="#输入图像" class="headerlink" title="输入图像"></a>输入图像</h3><p>假设$t$时刻和$t+1$时刻输入的图像分别是$I_{t}$，$I_{t+1}$，目前我采用的是来自KITTI的数据集。</p>
-<h3 id="畸变矫正"><a href="#畸变矫正" class="headerlink" title="畸变矫正"></a>畸变矫正</h3><p>关于畸变形成的原理和如何进行畸变矫正以及相机标定我会再写一篇详细的blog，这里采用的KITTI的数据集已经进行过矫正。</p>
-<h3 id="特征检测跟踪"><a href="#特征检测跟踪" class="headerlink" title="特征检测跟踪"></a>特征检测跟踪</h3><p>图像处理以及相关算法，给我印象对深刻，体会最深的就是特征，一个好的特征对图像处理至关重要，图像的研究以及相关算法大多是基于一定的特征，有可能是点，直线，边缘，甚至大牛们自己定义特征用以处理一定的问题。经典的特征提取算法有Harris角点检测，canny边缘检测，FAST，SIFT，SURF等。</p>
-<p>这里采用FAST(Features From Accelerated Segment Test)算法。先用FAST算法检测$I_t$的特征，然后用KLT算法进行跟踪特征到$I_{t+1}$中，由于KLT算法每次跟踪时会丢失部分特征，当特征点的个数小于预先设置的阈值时，重新检测特征点。</p>
-<h3 id="计算本质矩阵"><a href="#计算本质矩阵" class="headerlink" title="计算本质矩阵"></a>计算本质矩阵</h3><p>由于Essential Matrix具有5个自由度，因此用五点算法来估计本质矩阵。即如果匹配的特征是完美的，那么只需要五个点，但实际上存在误匹配，因此用RANSAC算法来筛选inlier。最终得到在两帧图像匹配点集合中具有最多的相应的Essential Matrix即为所求。</p>
-<h3 id="确定运动轨迹"><a href="#确定运动轨迹" class="headerlink" title="确定运动轨迹"></a>确定运动轨迹</h3><p>从Essential Matrix中求出旋转矩阵R和平移矩阵t，估计$scale$，并确定运动轨迹。这里的$scale$采用的是KITTI数据集所提供的。</p>
-<h2 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h2><p><img src="http://oo7y0cfqd.bkt.clouddn.com/result_01.png" alt="result"></p>
-<h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>当初开始做VO的时候看了很多论文，越看越懵逼。一大堆从来没听过的专业名词以及数学公式。毕竟视觉也是第一次接触，论文看的多了，也就明白了其中的原理，本来还有很多地方不是理解的很透彻，写blog的时候，把这个过程以及原理又大致梳理了一遍，才感觉到了原理上的融会贯通。不过，数学还是硬伤。论文以及原理看的多，却发现还是不会写代码，真的是菜啊。目前的单目VO也就能跑一下数据集，还没实现对实时轨迹的构建，也许以后还会做些优化。</p>
+<h2 id="算法流程">算法流程</h2>
+<h3 id="输入图像">输入图像</h3>
+<p>假设<span class="math inline">\(t\)</span>时刻和<span class="math inline">\(t+1\)</span>时刻输入的图像分别是<span class="math inline">\(I\_{t}\)</span>，<span class="math inline">\(I\_{t+1}\)</span>，目前我采用的是来自KITTI的数据集。</p>
+<h3 id="畸变矫正">畸变矫正</h3>
+<p>关于畸变形成的原理和如何进行畸变矫正以及相机标定我会再写一篇详细的blog，这里采用的KITTI的数据集已经进行过矫正。 ### 特征检测跟踪 图像处理以及相关算法，给我印象对深刻，体会最深的就是特征，一个好的特征对图像处理至关重要，图像的研究以及相关算法大多是基于一定的特征，有可能是点，直线，边缘，甚至大牛们自己定义特征用以处理一定的问题。经典的特征提取算法有Harris角点检测，canny边缘检测，FAST，SIFT，SURF等。</p>
+<p>这里采用FAST(Features From Accelerated Segment Test)算法。先用FAST算法检测<span class="math inline">\(I\_t\)</span>的特征，然后用KLT算法进行跟踪特征到<span class="math inline">\(I\_{t+1}\)</span>中，由于KLT算法每次跟踪时会丢失部分特征，当特征点的个数小于预先设置的阈值时，重新检测特征点。 ### 计算本质矩阵 由于Essential Matrix具有5个自由度，因此用五点算法来估计本质矩阵。即如果匹配的特征是完美的，那么只需要五个点，但实际上存在误匹配，因此用RANSAC算法来筛选inlier。最终得到在两帧图像匹配点集合中具有最多的相应的Essential Matrix即为所求。 ### 确定运动轨迹 从Essential Matrix中求出旋转矩阵R和平移矩阵t，估计<span class="math inline">\(scale\)</span>，并确定运动轨迹。这里的<span class="math inline">\(scale\)</span>采用的是KITTI数据集所提供的。 ## 运行结果 <img src="http://oo7y0cfqd.bkt.clouddn.com/result_01.png" alt="result"> ## 后记 当初开始做VO的时候看了很多论文，越看越懵逼。一大堆从来没听过的专业名词以及数学公式。毕竟视觉也是第一次接触，论文看的多了，也就明白了其中的原理，本来还有很多地方不是理解的很透彻，写blog的时候，把这个过程以及原理又大致梳理了一遍，才感觉到了原理上的融会贯通。不过，数学还是硬伤。论文以及原理看的多，却发现还是不会写代码，真的是菜啊。目前的单目VO也就能跑一下数据集，还没实现对实时轨迹的构建，也许以后还会做些优化。</p>
 
         
         
@@ -255,6 +330,7 @@
     <div class="article-content">
         
         
+
         
         
         <p class="article-more-link">
@@ -316,13 +392,14 @@
 </header>
     <div class="article-content">
         
-        <h2 id="快速开始"><a href="#快速开始" class="headerlink" title="快速开始"></a>快速开始</h2><h3 id="写新文章"><a href="#写新文章" class="headerlink" title="写新文章"></a>写新文章</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My new Post"</span></div></pre></td></tr></table></figure>
+        <h2 id="快速开始">快速开始</h2>
+<h3 id="写新文章">写新文章</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My new Post"</span></div></pre></td></tr></table></figure>
 <p>更多信息：<a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="本地运行"><a href="#本地运行" class="headerlink" title="本地运行"></a>本地运行</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>更多信息：<a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="生成静态文件"><a href="#生成静态文件" class="headerlink" title="生成静态文件"></a>生成静态文件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>更多信息：<a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="部署到Github"><a href="#部署到Github" class="headerlink" title="部署到Github"></a>部署到Github</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
+<h3 id="本地运行">本地运行</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
+<p>更多信息：<a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a> ### 生成静态文件 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure></p>
+<p>更多信息：<a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a> ### 部署到Github <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure></p>
 <p>更多信息：<a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
 
         
@@ -377,13 +454,18 @@
     <div class="article-content">
         
         <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
+<h2 id="quick-start">Quick Start</h2>
+<h3 id="create-a-new-post">Create a new post</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
 <p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
+<h3 id="run-server">Run server</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
 <p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
+<h3 id="generate-static-files">Generate static files</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
 <p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
+<h3 id="deploy-to-remote-sites">Deploy to remote sites</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
 <p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
 
         
