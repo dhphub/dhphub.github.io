@@ -12,30 +12,33 @@
 
     
     <meta name="description" content="概要
-在视觉里程计问题中，如何把图像中的像素点转化成世界坐标系下的真实点，通过真实点之间的关系来计算机器人或者相机的姿态，坐标系间的转换是基本问题。这四个坐标系分别是： * 世界坐标系(\(X_w,Y_w,Z_w\))，用来描述点在现实世界中的坐标。
+在视觉里程计问题中，如何把图像中的像素点转化成世界坐标系下的真实点，通过真实点之间的关系来计算机器人或者相机的姿态，坐标系间的转换是基本问题。这四个坐标系分别是：
 
+世界坐标系(\(X_w,Y_w,Z_w\))，用来描述点在现实世界中的坐标。
 相机坐标系(\(X_c,Y_c,Z_c\))，用来描述点在相机中的坐标。单位为毫米，相机位置为原点。
-像平面坐标系(\(x,y\))，用来描述点在">
+像平面坐标系(\(x,y\))，用来描述点在图像">
 <meta property="og:type" content="article">
 <meta property="og:title" content="四个坐标系间转换">
 <meta property="og:url" content="https://dhphub.github.io/2017/04/14/2017-04-14/index.html">
 <meta property="og:site_name" content="浮生小记">
 <meta property="og:description" content="概要
-在视觉里程计问题中，如何把图像中的像素点转化成世界坐标系下的真实点，通过真实点之间的关系来计算机器人或者相机的姿态，坐标系间的转换是基本问题。这四个坐标系分别是： * 世界坐标系(\(X_w,Y_w,Z_w\))，用来描述点在现实世界中的坐标。
+在视觉里程计问题中，如何把图像中的像素点转化成世界坐标系下的真实点，通过真实点之间的关系来计算机器人或者相机的姿态，坐标系间的转换是基本问题。这四个坐标系分别是：
 
+世界坐标系(\(X_w,Y_w,Z_w\))，用来描述点在现实世界中的坐标。
 相机坐标系(\(X_c,Y_c,Z_c\))，用来描述点在相机中的坐标。单位为毫米，相机位置为原点。
-像平面坐标系(\(x,y\))，用来描述点在">
+像平面坐标系(\(x,y\))，用来描述点在图像">
 <meta property="og:image" content="http://oo7y0cfqd.bkt.clouddn.com/0201.jpg">
 <meta property="og:image" content="http://oo7y0cfqd.bkt.clouddn.com/0202.jpg">
 <meta property="og:image" content="http://oo7y0cfqd.bkt.clouddn.com/0203.jpg">
-<meta property="og:updated_time" content="2017-05-07T04:36:28.459Z">
+<meta property="og:updated_time" content="2017-05-07T04:40:10.405Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="四个坐标系间转换">
 <meta name="twitter:description" content="概要
-在视觉里程计问题中，如何把图像中的像素点转化成世界坐标系下的真实点，通过真实点之间的关系来计算机器人或者相机的姿态，坐标系间的转换是基本问题。这四个坐标系分别是： * 世界坐标系(\(X_w,Y_w,Z_w\))，用来描述点在现实世界中的坐标。
+在视觉里程计问题中，如何把图像中的像素点转化成世界坐标系下的真实点，通过真实点之间的关系来计算机器人或者相机的姿态，坐标系间的转换是基本问题。这四个坐标系分别是：
 
+世界坐标系(\(X_w,Y_w,Z_w\))，用来描述点在现实世界中的坐标。
 相机坐标系(\(X_c,Y_c,Z_c\))，用来描述点在相机中的坐标。单位为毫米，相机位置为原点。
-像平面坐标系(\(x,y\))，用来描述点在">
+像平面坐标系(\(x,y\))，用来描述点在图像">
 <meta name="twitter:image" content="http://oo7y0cfqd.bkt.clouddn.com/0201.jpg">
 <link rel="publisher" href="100192185558249413488">
 
@@ -120,8 +123,9 @@
 		</div>
 		
 		<h2 id="概要">概要</h2>
-<p>在视觉里程计问题中，如何把图像中的像素点转化成世界坐标系下的真实点，通过真实点之间的关系来计算机器人或者相机的姿态，坐标系间的转换是基本问题。这四个坐标系分别是： * 世界坐标系(<span class="math inline">\(X_w,Y_w,Z_w\)</span>)，用来描述点在现实世界中的坐标。</p>
+<p>在视觉里程计问题中，如何把图像中的像素点转化成世界坐标系下的真实点，通过真实点之间的关系来计算机器人或者相机的姿态，坐标系间的转换是基本问题。这四个坐标系分别是：</p>
 <ul>
+<li><p>世界坐标系(<span class="math inline">\(X_w,Y_w,Z_w\)</span>)，用来描述点在现实世界中的坐标。</p></li>
 <li><p>相机坐标系(<span class="math inline">\(X_c,Y_c,Z_c\)</span>)，用来描述点在相机中的坐标。单位为毫米，相机位置为原点。</p></li>
 <li><p>像平面坐标系(<span class="math inline">\(x,y\)</span>)，用来描述点在图像所在平面中的位置，原点在<span class="math inline">\(Z_c\)</span>轴上。单位为毫米。</p></li>
 <li><p>像素坐标系(<span class="math inline">\(u,v\)</span>)，点在图像中的像素位置，一般原点在图像左下角或者左上角。单位为像素。</p></li>
