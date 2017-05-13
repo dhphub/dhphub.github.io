@@ -12,32 +12,41 @@
 
     
     <meta name="description" content="概要
-相机标定的目的是通过像素点与三维空间点的对应关系，像素点在两张图像中的对应关系，求出相机内参，以及畸变参数，以及两张照片间的旋转矩阵和平移向量。 ## 数学原理 ### 直接线性变换 在四个坐标系的转换中，最终得到了一个像素点与世界坐标系中的点的对应关系，也即： \[
+相机标定的目的是通过像素点与三维空间点的对应关系，像素点在两张图像中的对应关系，求出相机内参，以及畸变参数，以及两张照片间的旋转矩阵和平移向量。
+数学原理
+直接线性变换
+在四个坐标系的转换中，最终得到了一个像素点与世界坐标系中的点的对应关系，也即： \[
 Z_c\left[ \begin{matrix}
 u\\v\\1
 \end{matrix} \right]=
-\left[">
+\left[ \begin{">
 <meta property="og:type" content="article">
 <meta property="og:title" content="相机标定">
 <meta property="og:url" content="https://dhphub.github.io/2017/05/13/2017-05-13/index.html">
 <meta property="og:site_name" content="浮生小记">
 <meta property="og:description" content="概要
-相机标定的目的是通过像素点与三维空间点的对应关系，像素点在两张图像中的对应关系，求出相机内参，以及畸变参数，以及两张照片间的旋转矩阵和平移向量。 ## 数学原理 ### 直接线性变换 在四个坐标系的转换中，最终得到了一个像素点与世界坐标系中的点的对应关系，也即： \[
+相机标定的目的是通过像素点与三维空间点的对应关系，像素点在两张图像中的对应关系，求出相机内参，以及畸变参数，以及两张照片间的旋转矩阵和平移向量。
+数学原理
+直接线性变换
+在四个坐标系的转换中，最终得到了一个像素点与世界坐标系中的点的对应关系，也即： \[
 Z_c\left[ \begin{matrix}
 u\\v\\1
 \end{matrix} \right]=
-\left[">
+\left[ \begin{">
 <meta property="og:image" content="http://oo7y0cfqd.bkt.clouddn.com/0301.png">
 <meta property="og:image" content="http://oo7y0cfqd.bkt.clouddn.com/0302.png">
-<meta property="og:updated_time" content="2017-05-13T13:25:44.562Z">
+<meta property="og:updated_time" content="2017-05-13T13:32:28.665Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="相机标定">
 <meta name="twitter:description" content="概要
-相机标定的目的是通过像素点与三维空间点的对应关系，像素点在两张图像中的对应关系，求出相机内参，以及畸变参数，以及两张照片间的旋转矩阵和平移向量。 ## 数学原理 ### 直接线性变换 在四个坐标系的转换中，最终得到了一个像素点与世界坐标系中的点的对应关系，也即： \[
+相机标定的目的是通过像素点与三维空间点的对应关系，像素点在两张图像中的对应关系，求出相机内参，以及畸变参数，以及两张照片间的旋转矩阵和平移向量。
+数学原理
+直接线性变换
+在四个坐标系的转换中，最终得到了一个像素点与世界坐标系中的点的对应关系，也即： \[
 Z_c\left[ \begin{matrix}
 u\\v\\1
 \end{matrix} \right]=
-\left[">
+\left[ \begin{">
 <meta name="twitter:image" content="http://oo7y0cfqd.bkt.clouddn.com/0301.png">
 <link rel="publisher" href="100192185558249413488">
 
@@ -117,12 +126,15 @@ u\\v\\1
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#概要"><span class="toc-number">1.</span> <span class="toc-text">概要</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#张正友标定法"><span class="toc-number">1.1.</span> <span class="toc-text">张正友标定法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#代码实现"><span class="toc-number">2.</span> <span class="toc-text">代码实现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#标定结果"><span class="toc-number">2.1.</span> <span class="toc-text">标定结果</span></a></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#概要"><span class="toc-number">1.</span> <span class="toc-text">概要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数学原理"><span class="toc-number">2.</span> <span class="toc-text">数学原理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#直接线性变换"><span class="toc-number">2.1.</span> <span class="toc-text">直接线性变换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#张正友标定法"><span class="toc-number">2.2.</span> <span class="toc-text">张正友标定法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#代码实现"><span class="toc-number">3.</span> <span class="toc-text">代码实现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#标定结果"><span class="toc-number">3.1.</span> <span class="toc-text">标定结果</span></a></li></ol></li></ol>
 		
 		</div>
 		
 		<h2 id="概要">概要</h2>
-<p>相机标定的目的是通过像素点与三维空间点的对应关系，像素点在两张图像中的对应关系，求出相机内参，以及畸变参数，以及两张照片间的旋转矩阵和平移向量。 ## 数学原理 ### 直接线性变换 在四个坐标系的转换中，最终得到了一个像素点与世界坐标系中的点的对应关系，也即： <span class="math display">\[
+<p>相机标定的目的是通过像素点与三维空间点的对应关系，像素点在两张图像中的对应关系，求出相机内参，以及畸变参数，以及两张照片间的旋转矩阵和平移向量。</p>
+<h2 id="数学原理">数学原理</h2>
+<h3 id="直接线性变换">直接线性变换</h3>
+<p>在四个坐标系的转换中，最终得到了一个像素点与世界坐标系中的点的对应关系，也即： <span class="math display">\[
 Z_c\left[ \begin{matrix}
 u\\v\\1
 \end{matrix} \right]=
@@ -250,7 +262,7 @@ X\\Y\\1
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#概要"><span class="toc-number">1.</span> <span class="toc-text">概要</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#张正友标定法"><span class="toc-number">1.1.</span> <span class="toc-text">张正友标定法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#代码实现"><span class="toc-number">2.</span> <span class="toc-text">代码实现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#标定结果"><span class="toc-number">2.1.</span> <span class="toc-text">标定结果</span></a></li></ol></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#概要"><span class="toc-number">1.</span> <span class="toc-text">概要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数学原理"><span class="toc-number">2.</span> <span class="toc-text">数学原理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#直接线性变换"><span class="toc-number">2.1.</span> <span class="toc-text">直接线性变换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#张正友标定法"><span class="toc-number">2.2.</span> <span class="toc-text">张正友标定法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#代码实现"><span class="toc-number">3.</span> <span class="toc-text">代码实现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#标定结果"><span class="toc-number">3.1.</span> <span class="toc-text">标定结果</span></a></li></ol></li></ol>
  
   </div>
 
@@ -289,15 +301,15 @@ X\\Y\\1
 			
 		
 			
-				<li><a href="/tags/mathematics/" title="mathematics">mathematics<sup>1</sup></a></li>
-			
-		
-			
 				<li><a href="/tags/特征/" title="特征">特征<sup>1</sup></a></li>
 			
 		
 			
 				<li><a href="/tags/C/" title="C">C<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/mathematics/" title="mathematics">mathematics<sup>1</sup></a></li>
 			
 		
 		</ul>
