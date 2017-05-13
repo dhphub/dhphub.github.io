@@ -4,19 +4,41 @@
 <head>
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
   
-    <title>浮生小记</title>
+    <title>相机标定 | 浮生小记</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="Onirii">
     
 
     
-    <meta property="og:type" content="website">
-<meta property="og:title" content="浮生小记">
-<meta property="og:url" content="https://dhphub.github.io/index.html">
+    <meta name="description" content="概要
+相机标定的目的是通过像素点与三维空间点的对应关系，像素点在两张图像中的对应关系，求出相机内参，以及畸变参数，以及两张照片间的旋转矩阵和平移向量。 ## 数学原理 ### 直接线性变换 在四个坐标系的转换中，最终得到了一个像素点与世界坐标系中的点的对应关系，也即： \[
+Z_c\left[ \begin{matrix}
+u\\v\\1
+\end{matrix} \right]=
+\left[">
+<meta property="og:type" content="article">
+<meta property="og:title" content="相机标定">
+<meta property="og:url" content="https://dhphub.github.io/2017/05/13/2017-05-13/index.html">
 <meta property="og:site_name" content="浮生小记">
+<meta property="og:description" content="概要
+相机标定的目的是通过像素点与三维空间点的对应关系，像素点在两张图像中的对应关系，求出相机内参，以及畸变参数，以及两张照片间的旋转矩阵和平移向量。 ## 数学原理 ### 直接线性变换 在四个坐标系的转换中，最终得到了一个像素点与世界坐标系中的点的对应关系，也即： \[
+Z_c\left[ \begin{matrix}
+u\\v\\1
+\end{matrix} \right]=
+\left[">
+<meta property="og:image" content="http://oo7y0cfqd.bkt.clouddn.com/0301.png">
+<meta property="og:image" content="http://oo7y0cfqd.bkt.clouddn.com/0302.png">
+<meta property="og:updated_time" content="2017-05-13T13:25:44.562Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="浮生小记">
+<meta name="twitter:title" content="相机标定">
+<meta name="twitter:description" content="概要
+相机标定的目的是通过像素点与三维空间点的对应关系，像素点在两张图像中的对应关系，求出相机内参，以及畸变参数，以及两张照片间的旋转矩阵和平移向量。 ## 数学原理 ### 直接线性变换 在四个坐标系的转换中，最终得到了一个像素点与世界坐标系中的点的对应关系，也即： \[
+Z_c\left[ \begin{matrix}
+u\\v\\1
+\end{matrix} \right]=
+\left[">
+<meta name="twitter:image" content="http://oo7y0cfqd.bkt.clouddn.com/0301.png">
 <link rel="publisher" href="100192185558249413488">
 
     
@@ -73,12 +95,10 @@
 </div>
     </header>
     <div id="container">
-      <div id="main">
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
   <h1 itemprop="name">
     
       <a href="/2017/05/13/2017-05-13/" title="相机标定" itemprop="url">相机标定</a>
@@ -92,9 +112,16 @@
     
   </p>
 </header>
-    <div class="article-content">
-        
-        <h2 id="概要">概要</h2>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#概要"><span class="toc-number">1.</span> <span class="toc-text">概要</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#张正友标定法"><span class="toc-number">1.1.</span> <span class="toc-text">张正友标定法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#代码实现"><span class="toc-number">2.</span> <span class="toc-text">代码实现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#标定结果"><span class="toc-number">2.1.</span> <span class="toc-text">标定结果</span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<h2 id="概要">概要</h2>
 <p>相机标定的目的是通过像素点与三维空间点的对应关系，像素点在两张图像中的对应关系，求出相机内参，以及畸变参数，以及两张照片间的旋转矩阵和平移向量。 ## 数学原理 ### 直接线性变换 在四个坐标系的转换中，最终得到了一个像素点与世界坐标系中的点的对应关系，也即： <span class="math display">\[
 Z_c\left[ \begin{matrix}
 u\\v\\1
@@ -163,14 +190,9 @@ X\\Y\\1
 <img src="http://oo7y0cfqd.bkt.clouddn.com/0302.png" alt="result">
 <p class="caption">result</p>
 </div>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
+  
+	</div>
+		<footer class="article-footer clearfix">
 <div class="article-catetags">
 
 <div class="article-categories">
@@ -188,472 +210,49 @@ X\\Y\\1
 
 
 
+	<div class="article-share" id="share">
+	
+	  <div data-url="https://dhphub.github.io/2017/05/13/2017-05-13/" data-title="相机标定 | 浮生小记" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
 
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2017/05/13/2017-05-13/#disqus_thread" class="comments-count-link">Comments</a>
-	
-</div>
 
 </footer>
 
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
 
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/04/14/2017-04-14/" title="四个坐标系间转换" itemprop="url">四个坐标系间转换</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="https://plus.google.com/100192185558249413488?rel=author" title="Onirii" target="_blank" itemprop="author">Onirii</a>
-		
-  <p class="article-time">
-    <time datetime="2017-04-14T05:06:10.000Z" itemprop="datePublished"> 发表于 2017-04-14</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h2 id="概要">概要</h2>
-<p>在视觉里程计问题中，如何把图像中的像素点转化成世界坐标系下的真实点，通过真实点之间的关系来计算机器人或者相机的姿态，坐标系间的转换是基本问题。这四个坐标系分别是：</p>
-<ul>
-<li><p>世界坐标系(<span class="math inline">\(X_w,Y_w,Z_w\)</span>)，用来描述点在现实世界中的坐标。</p></li>
-<li><p>相机坐标系(<span class="math inline">\(X_c,Y_c,Z_c\)</span>)，用来描述点在相机中的坐标。单位为毫米，相机位置为原点。</p></li>
-<li><p>像平面坐标系(<span class="math inline">\(x,y\)</span>)，用来描述点在图像所在平面中的位置，原点在<span class="math inline">\(Z_c\)</span>轴上。单位为毫米。</p></li>
-<li><p>像素坐标系(<span class="math inline">\(u,v\)</span>)，点在图像中的像素位置，一般原点在图像左下角或者左上角。单位为像素。</p></li>
-</ul>
-<div class="figure">
-<img src="http://oo7y0cfqd.bkt.clouddn.com/0201.jpg" alt="坐标系">
-<p class="caption">坐标系</p>
-</div>
-<h2 id="世界坐标系与相机坐标系">世界坐标系与相机坐标系</h2>
-<p>世界坐标系是为了描述相机的位置而引入的，一般放在比较容易分析的地方，比如与相机坐标系重合。一般在双目系统中，默认左摄像头的坐标系与世界坐标系重合(如OpenCV)。三维坐标系的转换可以用旋转矩阵，欧拉角，四元数等多种方式描述，这里用旋转矩阵的方法。任何三维变换可以分解为旋转和平移，旋转由罗德里格斯公式给出，平移比较简单。最后我们得到如下公式：</p>
-<p><span class="math display">\[
-\left[ \begin{matrix}
-X_c \\
-Y_c \\ 
-Z_c \\
-1
-\end{matrix} \right]
-= \left[ \begin{matrix}
-  R_{3*3} &amp; T_{3*1} \\
-  O_{1*3} &amp; I_{1*1}
-  \end{matrix} \right]
-\left[ \begin{matrix}
-  X_w \\
-  Y_w \\
-  Z_w \\ 
-  1
-\end{matrix} \right]
-\]</span> 其中 <span class="math inline">\(R_{3*3}\)</span> 可由旋转角度<span class="math inline">\(θ\)</span>确定，也可由旋转矩阵求出对应的转角以及转轴。 <span class="math inline">\(T_{3*1}\)</span> 是平移矢量。</p>
-<h2 id="相机坐标系与像平面坐标系">相机坐标系与像平面坐标系</h2>
-<div class="figure">
-<img src="http://oo7y0cfqd.bkt.clouddn.com/0202.jpg">
-
-</div>
-<p>根据小孔成像的模型，由上图的几何关系得到：</p>
-<p><span class="math inline">\(x=fX/Z\)</span>，即<span class="math inline">\(Z*x=fX\)</span></p>
-<p><span class="math inline">\(y=fY/Z\)</span>，即<span class="math inline">\(Z*y=fY\)</span></p>
-<p>用齐次坐标写成如下形式，<span class="math inline">\(X_c,Y_c,Z_c\)</span>即上式中的<span class="math inline">\(X,Y,Z\)</span> 。 <span class="math display">\[
-Z_c\left[
-\begin{matrix}
-x \\
-y \\
-1
-\end{matrix}
-\right]
-=\left[
-\begin{matrix}
-f &amp; 0 &amp; 0 &amp; 0 \\
-0 &amp; f &amp; 0 &amp; 0 \\
-0 &amp; 0 &amp; 1 &amp; 0
-\end{matrix}
-\right]
-\left[\begin{matrix}
-X_c \\
-Y_c \\
-Z_c \\
-1
-\end{matrix}\right]
-\]</span></p>
-<h2 id="像平面与像素坐标系">像平面与像素坐标系</h2>
-<div class="figure">
-<img src="http://oo7y0cfqd.bkt.clouddn.com/0203.jpg">
-
-</div>
-<p>其中，<span class="math inline">\(O_1\)</span>是像平面坐标系的原点，它在图片坐标系中的位置是<span class="math inline">\((u_0,v_0)\)</span>，图片坐标系的原点在图片的左上角，可以得到：</p>
-<p><span class="math inline">\(u=u_0+x/dx\)</span></p>
-<p><span class="math inline">\(v=v_0+y/dy\)</span></p>
-<p>用齐次坐标表示为： <span class="math display">\[
-\left[ \begin{matrix}
-u \\ v \\ 1
-\end{matrix} \right]=
-\left[ \begin{matrix}
-1/dx &amp; 0 &amp; u_0 \\ 0 &amp; 1/dy &amp; v_0 \\ 0 &amp; 0 &amp; 1
-\end{matrix} \right]
-\left[ \begin{matrix}
-x \\ y  \\ 1
-\end{matrix} \right]
-\]</span> 其中<span class="math inline">\(dx,dy\)</span>表示每个像素在横轴<span class="math inline">\(x\)</span>和纵轴<span class="math inline">\(y\)</span>上的物理尺寸，单位是毫米每像素，最终得到像素坐标系中的表示。</p>
-<h2 id="最终表示公式">最终表示公式</h2>
-<p><span class="math display">\[
-Z_c
-\left[ \begin{matrix}
-u \\ v \\ 1
-\end{matrix} \right]=
-\left[ \begin{matrix}
-1/dx &amp; 0 &amp;u_0 \\ 0 &amp; 1/dy &amp; v_0 \\ 0 &amp; 0 &amp; 1
-\end{matrix} \right]
-\left[ \begin{matrix}
-f &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; f &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 1 &amp; 0
-\end{matrix} \right]
-\left[ \begin{matrix}
-R_{3*3} &amp; T_{3*1} \\ O_{1*3} &amp; I_{1*1}
-\end{matrix} \right]
-\left[ \begin{matrix}
-X_w \\ Y_w \\ Z_w \\ 1
-\end{matrix} \right]=
-\left[ \begin{matrix}
-α_x &amp; 0 &amp; u_0 &amp; 0 \\ 0 &amp; α_y &amp; v_0 &amp; 0 \\ 0 &amp; 0 &amp; 1 &amp; 0
-\end{matrix} \right]
-\left[ \begin{matrix}
-R_{3*3} &amp; T_{3*1} \\ O_{1*3} &amp; I_{1*1}
-\end{matrix} \right]
-\left[ \begin{matrix}
-X_w \\ Y_w \\ Z_w \\ 1
-\end{matrix} \right]=M_1M_2X_w=MX_w
-\]</span></p>
-<p>式中，<span class="math inline">\(M_1\)</span>称为相机内参，<span class="math inline">\(M_2\)</span>称为相机外参。内参可通过相机标定来求解。</p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/vision/">视觉</a>
+<div class="next">
+<a href="/2017/04/14/2017-04-14/"  title="四个坐标系间转换">
+ <strong>下一篇：</strong><br/> 
+ <span>四个坐标系间转换
+</span>
+</a>
 </div>
 
+</nav>
 
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/vision/">vision</a><a href="/tags/mathematics/">mathematics</a>
+	
+
+<section id="comments" class="comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
   </div>
+</section>
 
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2017/04/14/2017-04-14/#disqus_thread" class="comments-count-link">Comments</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/04/10/2017-04-10/" title="单目视觉里程计算法流程" itemprop="url">单目视觉里程计算法流程</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="https://plus.google.com/100192185558249413488?rel=author" title="Onirii" target="_blank" itemprop="author">Onirii</a>
-		
-  <p class="article-time">
-    <time datetime="2017-04-10T14:53:05.000Z" itemprop="datePublished"> 发表于 2017-04-10</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h2 id="视觉里程计">视觉里程计</h2>
-<p>通过处理摄像头采集的连续帧的图像来确定摄像头/机器人的位姿，也即6DOF。</p>
-<p>用一个摄像头的是单目视觉里程计，两个的叫双目。单目里程计可以用来确定机器人运动的大致轨迹，而双目里程计可以进行深度信息的测量，因此可以较为精确地测量出移动的距离。但是如果双目里程计的两个摄像头之间的baseline比较小，对于远处的物体，双目也就相当于单目。</p>
-<h2 id="算法流程">算法流程</h2>
-<h3 id="输入图像">输入图像</h3>
-<p>假设<span class="math inline">\(t\)</span>时刻和<span class="math inline">\(t+1\)</span>时刻输入的图像分别是<span class="math inline">\(I_{t}\)</span>，<span class="math inline">\(I_{t+1}\)</span>，目前我采用的是来自KITTI的数据集。</p>
-<h3 id="畸变矫正">畸变矫正</h3>
-<p>关于畸变形成的原理和如何进行畸变矫正以及相机标定我会再写一篇详细的blog，这里采用的KITTI的数据集已经进行过矫正。 ### 特征检测跟踪</p>
-<p>图像处理以及相关算法，给我印象对深刻，体会最深的就是特征，一个好的特征对图像处理至关重要，图像的研究以及相关算法大多是基于一定的特征，有可能是点，直线，边缘，甚至大牛们自己定义特征用以处理一定的问题。经典的特征提取算法有Harris角点检测，canny边缘检测，FAST，SIFT，SURF等。</p>
-<p>这里采用FAST(Features From Accelerated Segment Test)算法。先用FAST算法检测<span class="math inline">\(I_t\)</span>的特征，然后用KLT算法进行跟踪特征到<span class="math inline">\(I_{t+1}\)</span>中，由于KLT算法每次跟踪时会丢失部分特征，当特征点的个数小于预先设置的阈值时，重新检测特征点。</p>
-<h3 id="计算本质矩阵">计算本质矩阵</h3>
-<p>由于Essential Matrix具有5个自由度，因此用五点算法来估计本质矩阵。即如果匹配的特征是完美的，那么只需要五个点，但实际上存在误匹配，因此用RANSAC算法来筛选inlier。最终得到在两帧图像匹配点集合中具有最多的相应的Essential Matrix即为所求。</p>
-<h3 id="确定运动轨迹">确定运动轨迹</h3>
-<p>从Essential Matrix中求出旋转矩阵R和平移矩阵t，估计<span class="math inline">\(scale\)</span>，并确定运动轨迹。这里的<span class="math inline">\(scale\)</span>采用的是KITTI数据集所提供的。</p>
-<h2 id="运行结果">运行结果</h2>
-<div class="figure">
-<img src="http://oo7y0cfqd.bkt.clouddn.com/result_01.png" alt="result">
-<p class="caption">result</p>
-</div>
-<h2 id="后记">后记</h2>
-<p>当初开始做VO的时候看了很多论文，越看越懵逼。一大堆从来没听过的专业名词以及数学公式。毕竟视觉也是第一次接触，论文看的多了，也就明白了其中的原理，本来还有很多地方不是理解的很透彻，写blog的时候，把这个过程以及原理又大致梳理了一遍，才感觉到了原理上的融会贯通。不过，数学还是硬伤。论文以及原理看的多，却发现还是不会写代码，真的是菜啊。目前的单目VO也就能跑一下数据集，还没实现对实时轨迹的构建，也许以后还会做些优化。</p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/vision/">视觉</a>
-</div>
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/vision/">vision</a><a href="/tags/algorithm/">algorithm</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2017/04/10/2017-04-10/#disqus_thread" class="comments-count-link">Comments</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/04/09/name/" title="name" itemprop="url">name</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="https://plus.google.com/100192185558249413488?rel=author" title="Onirii" target="_blank" itemprop="author">Onirii</a>
-		
-  <p class="article-time">
-    <time datetime="2017-04-09T04:47:08.000Z" itemprop="datePublished"> 发表于 2017-04-09</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/随笔/">随笔</a>
-</div>
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/特征/">特征</a><a href="/tags/C/">C</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2017/04/09/name/#disqus_thread" class="comments-count-link">Comments</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/04/01/试水文/" title="试水文|翻译Hello World" itemprop="url">试水文|翻译Hello World</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="https://plus.google.com/100192185558249413488?rel=author" title="Onirii" target="_blank" itemprop="author">Onirii</a>
-		
-  <p class="article-time">
-    <time datetime="2017-04-01T11:30:38.000Z" itemprop="datePublished"> 发表于 2017-04-01</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h2 id="快速开始">快速开始</h2>
-<h3 id="写新文章">写新文章</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My new Post"</span></div></pre></td></tr></table></figure>
-<p>更多信息：<a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="本地运行">本地运行</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>更多信息：<a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a> ### 生成静态文件 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure></p>
-<p>更多信息：<a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a> ### 部署到Github <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure></p>
-<p>更多信息：<a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2017/04/01/试水文/#disqus_thread" class="comments-count-link">Comments</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2017/03/31/hello-world/" title="Hello World" itemprop="url">Hello World</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="https://plus.google.com/100192185558249413488?rel=author" title="Onirii" target="_blank" itemprop="author">Onirii</a>
-		
-  <p class="article-time">
-    <time datetime="2017-03-31T15:44:54.236Z" itemprop="datePublished"> 发表于 2017-03-31</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="quick-start">Quick Start</h2>
-<h3 id="create-a-new-post">Create a new post</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="run-server">Run server</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="generate-static-files">Generate static files</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="deploy-to-remote-sites">Deploy to remote sites</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2017/03/31/hello-world/#disqus_thread" class="comments-count-link">Comments</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-
-</div>
+</div>  
       <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#概要"><span class="toc-number">1.</span> <span class="toc-text">概要</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#张正友标定法"><span class="toc-number">1.1.</span> <span class="toc-text">张正友标定法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#代码实现"><span class="toc-number">2.</span> <span class="toc-text">代码实现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#标定结果"><span class="toc-number">2.1.</span> <span class="toc-text">标定结果</span></a></li></ol></li></ol>
+ 
+  </div>
 
 <div id="asidepart">
 <div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
@@ -824,15 +423,112 @@ $(document).ready(function(){
       m.removeClass('moveMain');
       a.css('display', 'block').removeClass('fadeOut');
       o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
         
     }
   });
 });
 </script>
 
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
 
 
 
+
+<script type="text/javascript">
+
+var disqus_shortname = 'onirii';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
 
 
 
@@ -935,4 +631,4 @@ $(document).ready(function(){
 <!-- hexo-inject:end -->
 
   </body>
- </html>
+</html>
