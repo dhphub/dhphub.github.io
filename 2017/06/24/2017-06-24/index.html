@@ -1,0 +1,53 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description"><title>双目测距的数学原理 | 浮生小记</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/6.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.2/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.2/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">双目测距的数学原理</h1><a id="logo" href="/.">浮生小记</a><p class="description">路漫漫其修远兮 | 吾将上下而求索  | 咦，我为什么会这么菜呢？</p></div><div id="nav-menu"><a href="/." class="current"><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a></div></div><div id="layout" class="pure-g"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">双目测距的数学原理</h1><div class="post-meta">Jun 24, 2017<span> | </span><span class="category"><a href="/categories/vision/">视觉</a></span><script src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js" async></script><span id="busuanzi_container_page_pv"> | <span id="busuanzi_value_page_pv"></span><span> 阅读</span></span></div><a data-disqus-identifier="2017/06/24/2017-06-24/" href="/2017/06/24/2017-06-24/#disqus_thread" class="disqus-comment-count"></a><div class="post-content"><p>双目测距，即利用两个图像传感器，固定两个传感器之间的距离，利用三角测量来计算物体与图像传感器之间的距离。在此将这个过程从数学角度推导一遍，以加深理解。</p>
+<h3 id="坐标系转换">坐标系转换</h3>
+<p>当有坐标系之间转换的基础知识的时候，双目测距的数学原理也就很好理解。</p>
+<p>由相机坐标系到图像坐标系的转换关系： <span class="math display">\[
+x = fX_c/Z_c\\
+y = fY_c/Z_c
+\]</span> <img src="http://oo7y0cfqd.bkt.clouddn.com/0202.jpg"></p>
+<p>其中，<span class="math inline">\(x,y\)</span>是图像坐标系下的坐标，<span class="math inline">\(X_c,Y_c.Z_c\)</span>是相机坐标系下的坐标。对于双目系统来说，有两个相机坐标系我们需要将其统一，一般选取左边相机的坐标系，对于左边相机坐标系中的点<span class="math inline">\(M(x,y,z)\)</span> ，在右边相机坐标系中的表示为<span class="math inline">\(M(x-B,y,z)\)</span>， 其中<span class="math inline">\(B\)</span>是基线，也即两个相机间的水平距离。</p>
+<div class="figure">
+<img src="http://oo7y0cfqd.bkt.clouddn.com/0401.png">
+
+</div>
+<div class="figure">
+<img src="http://oo7y0cfqd.bkt.clouddn.com/0201.jpg">
+
+</div>
+<h3 id="测距的数学推导">测距的数学推导</h3>
+<p>以第二张图为例，假设物体<span class="math inline">\(P\)</span>的左相机坐标系下坐标为<span class="math inline">\((x,y,z)\)</span>，则在右相机坐标系下的坐标为<span class="math inline">\((x-B,y,z)\)</span> <span class="math inline">\(P_{left}\)</span>和<span class="math inline">\(P_{right}\)</span>分别表示在左右图像中对应的成像点，用<span class="math inline">\((X_{left}，Y)\)</span>和<span class="math inline">\((X_{right},Y)\)</span>表示左右图像坐标系的坐标，<span class="math inline">\(B\)</span>表示基线。左右相加拥有相同的内参。则有： <span class="math display">\[
+X_{left} = fx/z\\X_{right} = f(x-B)/z\\Y = fy/z
+\]</span> 令<span class="math inline">\(X_{left}-X_{right} = D\)</span> (视差)，则有： <span class="math display">\[
+x = BX_{left}/D \\
+y = BY/D \\
+z = Bf/D
+\]</span> 于是我们求解出了点<span class="math inline">\(P\)</span>在相机中的深度，通常为了计算方便，我们会将世界坐标与相机坐标系重合，这时也就求出了世界坐标系下深度，也即实际的距离。</p>
+</div><script type="text/javascript" src="/js/share.js?v=0.0.0" async></script><a data-url="https://dhphub.github.io/2017/06/24/2017-06-24/" data-id="cj6w70s3o0002rtdbc6asfue9" class="article-share-link">分享</a><div class="tags"><a href="/tags/vision/">vision</a><a href="/tags/mathematics/">mathematics</a></div><div class="post-nav"><a href="/2017/05/13/2017-05-13/" class="next">相机标定</a></div><div id="disqus_thread"><div class="btn_click_load"><button class="disqus_click_btn">阅读评论 「请确保 disqus.com 可以正常加载」</button></div><script>var disqus_shortname = 'onirii';
+var disqus_identifier = '2017/06/24/2017-06-24/';
+var disqus_title = '双目测距的数学原理';
+var disqus_url = 'https://dhphub.github.io/2017/06/24/2017-06-24/';
+$('.btn_click_load').click(function() {
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+  $('.btn_click_load').css('display','none');
+});
+$.ajax({
+  url: 'https://disqus.com/favicon.ico',
+  timeout: 3000,
+  type: 'GET',
+  success: (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    $('.btn_click_load').css('display','none');
+  })(),
+  error: function() {
+    $('.btn_click_load').css('display','block');
+  }
+});</script><script id="dsq-count-scr" src="//onirii.disqus.com/count.js" async></script></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank" class="search-form"><input type="text" name="q" maxlength="20" placeholder="Search"/><input type="hidden" name="sitesearch" value="https://dhphub.github.io"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/vision/">视觉</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/vision/" style="font-size: 15px;">vision</a> <a href="/tags/algorithm/" style="font-size: 15px;">algorithm</a> <a href="/tags/mathematics/" style="font-size: 15px;">mathematics</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/06/24/2017-06-24/">双目测距的数学原理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/13/2017-05-13/">相机标定</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/14/2017-04-14/">四个坐标系间转换</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/04/10/2017-04-10/">单目视觉里程计算法流程</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-comment-o"> 最近评论</i></div><script type="text/javascript" src="//onirii.disqus.com/recent_comments_widget.js?num_items=5&amp;hide_avatars=1&amp;avatar_size=32&amp;excerpt_length=20&amp;hide_mods=1"></script></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://needer28.github.io/" title="时蛮蛮" target="_blank">时蛮蛮</a><ul></ul><a href="https://Beprominent.github.io/" title="Beprominent" target="_blank">Beprominent</a><ul></ul><a href="http://www.cnblogs.com/1oner/" title="1oner" target="_blank">1oner</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2017 <a href="/." rel="nofollow">浮生小记.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a id="rocket" href="#top" class="show"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.0.47/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.0.47/jquery.fancybox.min.css"><script type="text/x-mathjax-config">MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+  });
+</script><script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML" async></script><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
